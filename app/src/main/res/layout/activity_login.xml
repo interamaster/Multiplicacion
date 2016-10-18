@@ -26,6 +26,92 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
+        <TableLayout
+            android:id="@+id/activity_login_pad_table_layout"
+            android:gravity="center"
+            android:paddingTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="1dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/tabla1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/two_dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/rosa_1"
+                    android:scaleType="fitXY"
+                    android:background="@android:color/transparent"
+                    android:adjustViewBounds="true"
+                    android:tag="Thin" />
+
+                <ImageButton
+                    android:id="@+id/tabla2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/two_dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/rosa_2"
+                    android:scaleType="fitXY"
+                    android:background="@android:color/transparent"
+                    android:adjustViewBounds="true"
+
+                    android:tag="Thin" />
+
+                <ImageButton
+                    android:id="@+id/tabla3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/two_dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/rosa_3"
+                    android:scaleType="fitXY"
+                    android:background="@android:color/transparent"
+                    android:tag="Thin" />
+
+                <ImageButton
+                    android:id="@+id/tabla4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/two_dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/rosa_4"
+                    android:scaleType="fitXY"
+                    android:background="@android:color/transparent"
+                    android:tag="Thin" />
+                <ImageButton
+                    android:id="@+id/tabla5"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/two_dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/rosa_5"
+                    android:scaleType="fitXY"
+                    android:background="@android:color/transparent"
+                    android:tag="Thin" />
+
+            </TableRow>
+
+        </TableLayout>
+
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
             style="?metaButtonBarStyle"
