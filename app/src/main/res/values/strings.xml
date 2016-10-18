@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Global -->
-    <string name="app_name">Login Pad</string>
+    <string name="app_name">Tablas Multiplicar</string>
 
     <!-- Login -->
     <string name="activity_login_enter_access_code">Enter Access Code</string>

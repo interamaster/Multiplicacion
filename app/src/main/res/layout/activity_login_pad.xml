@@ -29,41 +29,15 @@
             android:background="@drawable/login_pad_edit_text"
             android:textColor="@color/blue"
             android:layout_width="@dimen/one_hundred_fourty_five_dp"
-            android:layout_height="@dimen/thirty_dp"
+            android:layout_height="@dimen/fifty_four_dp"
             android:gravity="center"
-            android:inputType="numberPassword"
+            android:inputType="number"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:maxLength="6"/>
+            android:maxLength="3"/>
 
-        <TextView
-            android:id="@+id/activity_login_access_code_login"
-            android:layout_toRightOf="@id/activity_login_access_code_value"
-            android:layout_alignBottom="@id/activity_login_access_code_value"
-            android:layout_alignTop="@id/activity_login_access_code_value"
-            android:layout_height="@dimen/thirty_dp"
-            android:layout_width="wrap_content"
-            android:paddingLeft="@dimen/ten_dp"
-            android:paddingRight="@dimen/ten_dp"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="@dimen/ten_dp"
-            android:background="@drawable/login_pad_login_button"
-            android:text="@string/activity_login"
-            android:textColor="@color/white"
-            android:textSize="@dimen/fourteen_sp"/>
 
-        <ProgressBar
-            android:id="@+id/login_button_progress"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_centerVertical="true"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-			android:paddingLeft="@dimen/two_dp"
-			android:paddingRight="@dimen/two_dp"
-            android:layout_alignBottom="@id/activity_login_access_code_login"
-            android:layout_alignTop="@id/activity_login_access_code_login"
-            android:layout_alignLeft="@id/activity_login_access_code_login"
-            android:layout_alignRight="@id/activity_login_access_code_login" />
+
     </RelativeLayout>
 
     <TableLayout

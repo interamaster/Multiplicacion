@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,10 +35,10 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 	@AndroidView(jrdv.mio.com.entrenatablasmultiplicacion.R.id.activity_login_access_code_value)
     private EditText mUserAccessCode;
 
-    @AndroidView(jrdv.mio.com.entrenatablasmultiplicacion.R.id.activity_login_access_code_login)
+   // @AndroidView(jrdv.mio.com.entrenatablasmultiplicacion.R.id.activity_login_access_code_login)
     private TextView mLoginButton;
 
-    @AndroidView(jrdv.mio.com.entrenatablasmultiplicacion.R.id.login_button_progress)
+  //  @AndroidView(jrdv.mio.com.entrenatablasmultiplicacion.R.id.login_button_progress)
     private ProgressBar mLoginProgress;
 
     @AndroidView(jrdv.mio.com.entrenatablasmultiplicacion.R.id.one_button)
@@ -78,11 +79,15 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
     private Animation mAnimSlideIn;
     private Animation mAnimSlideOut;
 
+    //new shake:
+
+    private  Animation mShakeAnimation;
+
     private boolean mDeleteIsShowing = false;
     private boolean mFailedLogin = false;
 
 	public static final String USER_PIN = "USER_PIN";
-	public static final int USER_PIN_MAX_CHAR = 6;
+	public static final int USER_PIN_MAX_CHAR = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,9 +151,9 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void configureViews() {
-        this.mLoginProgress.setVisibility(View.GONE);
-        this.mLoginButton.setOnClickListener(this);
-        this.mLoginButton.setVisibility(View.GONE);
+      //  this.mLoginProgress.setVisibility(View.GONE);
+       // this.mLoginButton.setOnClickListener(this);
+      //  this.mLoginButton.setVisibility(View.GONE);
         this.mOneButton.setOnClickListener(this);
         this.mOneButton.setOnTouchListener(this);
         this.mTwoButton.setOnClickListener(this);
@@ -184,7 +189,28 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void afterTextChanged(Editable editable) {
                 if (LoginPadActivity.this.mUserAccessCode.getText().length() == USER_PIN_MAX_CHAR) {
-                    animateLoginButtonInOut(true);
+
+                    Log.e("INFO","hemos llegado al nuemro maximo");
+                    //TODO ver si es correcto o no y hacer animacion o borrar:
+
+                    String numerometido=LoginPadActivity.this.mUserAccessCode.getText().toString();
+
+                    int numeroenINT=Integer.parseInt(numerometido);
+
+                    if (numeroenINT==123) {
+
+                        //hemos acertado siguiente:
+                        animateLoginButtonInOut(false);
+                    }
+
+                    else{
+
+                        //hemos fallado
+                        animateLoginButtonInOut(true);
+
+
+                    }
+
                 }
             }
         });
@@ -194,11 +220,22 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         this.mAnimSlideIn = AnimationUtils
                 .loadAnimation(getApplicationContext(),
                         jrdv.mio.com.entrenatablasmultiplicacion.R.anim.slide_in_from_left_small_bounce);
-        this.mAnimSlideIn.setInterpolator(this.mAnimationSlideInterpolator);
+         this.mAnimSlideIn.setInterpolator(this.mAnimationSlideInterpolator);
+
+
 
         this.mAnimSlideOut = AnimationUtils.loadAnimation(
                 getApplicationContext(), jrdv.mio.com.entrenatablasmultiplicacion.R.anim.slide_out_right);
         this.mAnimSlideOut.setInterpolator(this.mAnimationSlideInterpolator);
+
+
+        //new shake si falla:
+
+        this.mShakeAnimation = AnimationUtils.loadAnimation(
+                getApplicationContext(), R.anim.shake);
+        this.mShakeAnimation.setInterpolator(this.mAnimationSlideInterpolator);
+
+
         this.mAnimSlideOut.setAnimationListener(new Animation.AnimationListener() {
 
 	        @Override
@@ -211,6 +248,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
 	        @Override
 	        public void onAnimationEnd(Animation animationIn) {
+                //nunca se ejecuta
 		        LoginPadActivity.this.mLoginButton.setVisibility(View.GONE);
 		        if (LoginPadActivity.this.mFailedLogin) {
 			        crossFade(getResources().getInteger(android.R.integer.config_mediumAnimTime),
@@ -223,6 +261,9 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void animateLoginButtonInOut(boolean animateIn) {
+
+        /*
+        TODO animar el borrado del numero metido
         if (animateIn) {
             this.mLoginButton.setVisibility(View.VISIBLE);
             this.mLoginButton.startAnimation(this.mAnimSlideIn);
@@ -232,6 +273,28 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             this.mLoginButton.setVisibility(View.GONE);
             this.mLoginButton.setText(getResources().getString(
                     jrdv.mio.com.entrenatablasmultiplicacion.R.string.activity_login));
+        }*/
+
+
+        //lo hago con el numero metido
+
+        if (animateIn) {
+            //si hemos fallado:
+          //  this.mUserAccessCode.startAnimation(this.mAnimSlideIn);
+
+            //hago el shake
+            this.mUserAccessCode.startAnimation(this.mShakeAnimation);
+
+        } else {
+            ////si hemos acertado:
+
+            //this.mLoginProgress.setVisibility(View.GONE);
+           // this.mUserAccessCode.startAnimation(this.mAnimSlideOut);
+            Log.e("INFO","acertaste!!!!!");
+
+            //borramos numero
+
+            LoginPadActivity.this.mUserAccessCode.setText("");
         }
     }
 
@@ -296,7 +359,10 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     this.mUserAccessCode.append(this.mZeroButton.getText());
                 }
                 break;
-            case jrdv.mio.com.entrenatablasmultiplicacion.R.id.activity_login_access_code_login:
+
+          /*
+          TODO boton de login o acierto/error
+          case jrdv.mio.com.entrenatablasmultiplicacion.R.id.activity_login_access_code_login:
                 crossFade(
                         getResources().getInteger(
                                 android.R.integer.config_longAnimTime),
@@ -306,10 +372,13 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                 this.mLoginProgress.setVisibility(View.VISIBLE);
                 attemptLogin(this.mUserAccessCode.getText().toString());
                 break;
+
+                */
             case jrdv.mio.com.entrenatablasmultiplicacion.R.id.activity_login_access_code_delete:
-                if (this.mLoginButton.getVisibility() == View.VISIBLE) {
-                    animateLoginButtonInOut(false);
-                }
+
+               // if (this.mLoginButton.getVisibility() == View.VISIBLE) {
+               //     animateLoginButtonInOut(false);
+               // }
                 this.mUserAccessCode.dispatchKeyEvent(new KeyEvent(
                         KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
                 if (isEditTextEmpty(this.mUserAccessCode)) {
