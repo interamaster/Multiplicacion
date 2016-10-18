@@ -1,5 +1,8 @@
 package jrdv.mio.com.entrenatablasmultiplicacion;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -89,18 +92,48 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 	public static final String USER_PIN = "USER_PIN";
 	public static final int USER_PIN_MAX_CHAR = 3;
 
+    public static final String PREFS_NAME = "MyPrefsFile";
+    public static final String PREF_BOOL_NINOYAOK ="false";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+        //recupermos los valores del SharedPRefs sis e guardaron tras el signup activity
+
+        SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+
+        boolean alreadyloggedinbefore =  pref.getBoolean(PREF_BOOL_NINOYAOK, false);//falso si no existe
+
+
+
+        Log.d(TAG, String.valueOf(alreadyloggedinbefore));
+
+
 	    // only show the login pad if the  user hasn't logged in
-	    if (didLogIn()) {
+	  /*  if (didLogIn()) {
 		    closeActivity();
 	    }
+    */
 
-        configureViews();
-        configureAnimations();
-        setEditTextListener();
+        if (alreadyloggedinbefore)
+        //si ya habiamos metido datos del niño y tablas maximas:
+            {
+            configureViews();
+            configureAnimations();
+            setEditTextListener();
+
+        }
+        else {
+
+            //ve  a la pantalla de meter nombre y tabla maxima!!
+
+            Intent intent = new Intent(this, jrdv.mio.com.entrenatablasmultiplicacion.LoginActivity.class);
+            startActivity(intent);
+        }
 
     }
 
@@ -144,6 +177,8 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 			return true;
 		}
 		return false;
+
+
 	}
 
     private void closeActivity() {
