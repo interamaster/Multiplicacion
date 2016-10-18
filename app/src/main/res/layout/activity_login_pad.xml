@@ -40,14 +40,28 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/activity_login_access_code_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/twenty_dp"
+        android:paddingRight="@dimen/twenty_dp"
+        android:text="@string/activity_login_delete"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sixteen_sp"
+        android:tag="Medium"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <TableLayout
         android:id="@+id/activity_login_pad_table_layout"
-        android:layout_below="@id/login_text_button_layout"
-        android:layout_alignParentBottom="true"
         android:gravity="center"
         android:paddingTop="@dimen/twenty_dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <TableRow
             android:layout_width="wrap_content"
@@ -222,19 +236,5 @@
         </TableRow>
 
     </TableLayout>
-
-    <TextView
-        android:id="@+id/activity_login_access_code_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/twenty_dp"
-        android:paddingRight="@dimen/twenty_dp"
-        android:text="@string/activity_login_delete"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sixteen_sp"
-        android:tag="Medium"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

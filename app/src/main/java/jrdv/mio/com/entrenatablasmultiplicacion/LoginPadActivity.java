@@ -483,9 +483,62 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         if (eventIn.getAction() == MotionEvent.ACTION_DOWN) {
             ((TextView) viewIn).setTextColor(getResources().getColor(
                     R.color.blue));
+            /*
+            switch (viewIn.getId()) {
+                case jrdv.mio.com.entrenatablasmultiplicacion.R.id.one_button:
+                    mOneButton.setTextColor(getResources().getColor(R.color.blue));
+                    mOneButton.setPressed(true);
+                    break;
+                case jrdv.mio.com.entrenatablasmultiplicacion.R.id.two_button:
+                    mOneButton.setTextColor(getResources().getColor(R.color.blue));
+                    mTwoButton.setTextColor(getResources().getColor(R.color.blue));
+                    mOneButton.setPressed(true);
+                    mTwoButton.setPressed(true);
+                    break;
+                case jrdv.mio.com.entrenatablasmultiplicacion.R.id.three_button:
+                    mOneButton.setTextColor(getResources().getColor(R.color.blue));
+                    mTwoButton.setTextColor(getResources().getColor(R.color.blue));
+                    mThreeButton.setTextColor(getResources().getColor(R.color.blue));
+                    mOneButton.setPressed(true);
+                    mTwoButton.setPressed(true);
+                    mThreeButton.setPressed(true);
+
+
+                    break;
+                case jrdv.mio.com.entrenatablasmultiplicacion.R.id.four_button:
+                    mOneButton.setTextColor(getResources().getColor(R.color.blue));
+                    mTwoButton.setTextColor(getResources().getColor(R.color.blue));
+                    mThreeButton.setTextColor(getResources().getColor(R.color.blue));
+                    mFourButton.setTextColor(getResources().getColor(R.color.blue));
+                    mOneButton.setPressed(true);
+                    mTwoButton.setPressed(true);
+                    mThreeButton.setPressed(true);
+                    mFourButton.setPressed(true);
+
+                    break;
+                case jrdv.mio.com.entrenatablasmultiplicacion.R.id.five_button:
+
+                    break;
+                case jrdv.mio.com.entrenatablasmultiplicacion.R.id.six_button:
+
+                    break;
+                case jrdv.mio.com.entrenatablasmultiplicacion.R.id.seven_button:
+
+                    break;
+                case jrdv.mio.com.entrenatablasmultiplicacion.R.id.eight_button:
+
+                    break;
+                case jrdv.mio.com.entrenatablasmultiplicacion.R.id.nine_button:
+
+                    break;
+                case jrdv.mio.com.entrenatablasmultiplicacion.R.id.zero_button:
+
+                    break;
+            }
+                */
+
         } else if (eventIn.getAction() == MotionEvent.ACTION_UP) {
-            ((TextView) viewIn).setTextColor(getResources().getColor(
-                    jrdv.mio.com.entrenatablasmultiplicacion.R.color.white));
+                 ((TextView) viewIn).setTextColor(getResources().getColor(jrdv.mio.com.entrenatablasmultiplicacion.R.color.white));
         }
     }
 }
