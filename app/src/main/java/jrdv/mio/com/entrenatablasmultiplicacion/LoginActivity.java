@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -169,4 +173,282 @@ public class LoginActivity extends Activity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
-}
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////PULSADO UN BOTON DE TABLA/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public void pulsadoNum(View v) {
+
+        //REFERECCIA  ALOS BOTONES:
+        ImageButton button1 = (ImageButton) findViewById(R.id.tabla1);
+        ImageButton button2 = (ImageButton) findViewById(R.id.tabla2);
+        ImageButton button3 = (ImageButton) findViewById(R.id.tabla3);
+        ImageButton button4 = (ImageButton) findViewById(R.id.tabla4);
+        ImageButton button5 = (ImageButton) findViewById(R.id.tabla5);
+        ImageButton button6 = (ImageButton) findViewById(R.id.tabla6);
+        ImageButton button7 = (ImageButton) findViewById(R.id.tabla7);
+        ImageButton button8 = (ImageButton) findViewById(R.id.tabla8);
+        ImageButton button9 = (ImageButton) findViewById(R.id.tabla9);
+        ImageButton button10 = (ImageButton) findViewById(R.id.tabla10);
+
+
+        //creamsos la animacion
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+
+
+
+        switch (v.getId()) {
+            case R.id.tabla1:
+                // do work for this Button
+
+
+                //cambiamos el src al color verde!!! esta tabla se hara
+                button1.setImageResource(R.drawable.verde_1);
+                button2.setImageResource(R.drawable.rosa_2);
+                button3.setImageResource(R.drawable.rosa_3);
+                button4.setImageResource(R.drawable.rosa_4);
+                button5.setImageResource(R.drawable.rosa_5);
+                button6.setImageResource(R.drawable.rosa_6);
+                button7.setImageResource(R.drawable.rosa_7);
+                button8.setImageResource(R.drawable.rosa_8);
+                button9.setImageResource(R.drawable.rosa_9);
+                button10.setImageResource(R.drawable.rosa_10);
+
+                //animate!!!
+                button1.startAnimation(myAnim);
+
+                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+
+
+                break;
+            case R.id.tabla2:
+                // do work for this Button
+
+
+                //cambiamos el src al color verde!!! esta tabla se hara
+                button1.setImageResource(R.drawable.verde_1);
+                button2.setImageResource(R.drawable.verde_2);
+                button3.setImageResource(R.drawable.rosa_3);
+                button4.setImageResource(R.drawable.rosa_4);
+                button5.setImageResource(R.drawable.rosa_5);
+                button6.setImageResource(R.drawable.rosa_6);
+                button7.setImageResource(R.drawable.rosa_7);
+                button8.setImageResource(R.drawable.rosa_8);
+                button9.setImageResource(R.drawable.rosa_9);
+                button10.setImageResource(R.drawable.rosa_10);
+                //animate!!!
+                button1.startAnimation(myAnim);
+                button2.startAnimation(myAnim);
+                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                break;
+            case R.id.tabla3:
+                // do work for this Button
+
+                //cambiamos el src al color verde!!! esta tabla se hara
+                button1.setImageResource(R.drawable.verde_1);
+                button2.setImageResource(R.drawable.verde_2);
+                button3.setImageResource(R.drawable.verde_3);
+                button4.setImageResource(R.drawable.rosa_4);
+                button5.setImageResource(R.drawable.rosa_5);
+                button6.setImageResource(R.drawable.rosa_6);
+                button7.setImageResource(R.drawable.rosa_7);
+                button8.setImageResource(R.drawable.rosa_8);
+                button9.setImageResource(R.drawable.rosa_9);
+                button10.setImageResource(R.drawable.rosa_10);
+                //animate!!!
+                button1.startAnimation(myAnim);
+                button2.startAnimation(myAnim);
+                button3.startAnimation(myAnim);
+                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+                break;
+            case R.id.tabla4:
+                // do work for this Button
+
+                //cambiamos el src al color verde!!! esta tabla se hara
+                button1.setImageResource(R.drawable.verde_1);
+                button2.setImageResource(R.drawable.verde_2);
+                button3.setImageResource(R.drawable.verde_3);
+                button4.setImageResource(R.drawable.verde_4);
+                button5.setImageResource(R.drawable.rosa_5);
+                button6.setImageResource(R.drawable.rosa_6);
+                button7.setImageResource(R.drawable.rosa_7);
+                button8.setImageResource(R.drawable.rosa_8);
+                button9.setImageResource(R.drawable.rosa_9);
+                button10.setImageResource(R.drawable.rosa_10);
+                //animate!!!
+                button1.startAnimation(myAnim);
+                button2.startAnimation(myAnim);
+                button3.startAnimation(myAnim);
+                button4.startAnimation(myAnim);
+                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+                break;
+            case R.id.tabla5:
+                // do work for this Button
+
+                //cambiamos el src al color verde!!! esta tabla se hara
+                button1.setImageResource(R.drawable.verde_1);
+                button2.setImageResource(R.drawable.verde_2);
+                button3.setImageResource(R.drawable.verde_3);
+                button4.setImageResource(R.drawable.verde_4);
+                button5.setImageResource(R.drawable.verde_5);
+                button6.setImageResource(R.drawable.rosa_6);
+                button7.setImageResource(R.drawable.rosa_7);
+                button8.setImageResource(R.drawable.rosa_8);
+                button9.setImageResource(R.drawable.rosa_9);
+                button10.setImageResource(R.drawable.rosa_10);
+                //animate!!!
+                button1.startAnimation(myAnim);
+                button2.startAnimation(myAnim);
+                button3.startAnimation(myAnim);
+                button4.startAnimation(myAnim);
+                button5.startAnimation(myAnim);
+                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+
+                break;
+            case R.id.tabla6:
+                // do work for this Button
+
+                //cambiamos el src al color verde!!! esta tabla se hara
+                button1.setImageResource(R.drawable.verde_1);
+                button2.setImageResource(R.drawable.verde_2);
+                button3.setImageResource(R.drawable.verde_3);
+                button4.setImageResource(R.drawable.verde_4);
+                button5.setImageResource(R.drawable.verde_5);
+                button6.setImageResource(R.drawable.verde_6);
+                button7.setImageResource(R.drawable.rosa_7);
+                button8.setImageResource(R.drawable.rosa_8);
+                button9.setImageResource(R.drawable.rosa_9);
+                button10.setImageResource(R.drawable.rosa_10);
+                //animate!!!
+                button1.startAnimation(myAnim);
+                button2.startAnimation(myAnim);
+                button3.startAnimation(myAnim);
+                button4.startAnimation(myAnim);
+                button5.startAnimation(myAnim);
+                button6.startAnimation(myAnim);
+                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                break;
+            case R.id.tabla7:
+                // do work for this Button
+
+                //cambiamos el src al color verde!!! esta tabla se hara
+                button1.setImageResource(R.drawable.verde_1);
+                button2.setImageResource(R.drawable.verde_2);
+                button3.setImageResource(R.drawable.verde_3);
+                button4.setImageResource(R.drawable.verde_4);
+                button5.setImageResource(R.drawable.verde_5);
+                button6.setImageResource(R.drawable.verde_6);
+                button7.setImageResource(R.drawable.verde_7);
+                button8.setImageResource(R.drawable.rosa_8);
+                button9.setImageResource(R.drawable.rosa_9);
+                button10.setImageResource(R.drawable.rosa_10);
+                //animate!!!
+                button1.startAnimation(myAnim);
+                button2.startAnimation(myAnim);
+                button3.startAnimation(myAnim);
+                button4.startAnimation(myAnim);
+                button5.startAnimation(myAnim);
+                button6.startAnimation(myAnim);
+                button7.startAnimation(myAnim);
+                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                break;
+            case R.id.tabla8:
+                // do work for this Button
+
+                //cambiamos el src al color verde!!! esta tabla se hara
+                button1.setImageResource(R.drawable.verde_1);
+                button2.setImageResource(R.drawable.verde_2);
+                button3.setImageResource(R.drawable.verde_3);
+                button4.setImageResource(R.drawable.verde_4);
+                button5.setImageResource(R.drawable.verde_5);
+                button6.setImageResource(R.drawable.verde_6);
+                button7.setImageResource(R.drawable.verde_7);
+                button8.setImageResource(R.drawable.verde_8);
+                button9.setImageResource(R.drawable.rosa_9);
+                button10.setImageResource(R.drawable.rosa_10);
+                //animate!!!
+                button1.startAnimation(myAnim);
+                button2.startAnimation(myAnim);
+                button3.startAnimation(myAnim);
+                button4.startAnimation(myAnim);
+                button5.startAnimation(myAnim);
+                button6.startAnimation(myAnim);
+                button7.startAnimation(myAnim);
+                button8.startAnimation(myAnim);
+                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                break;
+            case R.id.tabla9:
+                // do work for this Button
+
+                //cambiamos el src al color verde!!! esta tabla se hara
+                button1.setImageResource(R.drawable.verde_1);
+                button2.setImageResource(R.drawable.verde_2);
+                button3.setImageResource(R.drawable.verde_3);
+                button4.setImageResource(R.drawable.verde_4);
+                button5.setImageResource(R.drawable.verde_5);
+                button6.setImageResource(R.drawable.verde_6);
+                button7.setImageResource(R.drawable.verde_7);
+                button8.setImageResource(R.drawable.verde_8);
+                button9.setImageResource(R.drawable.verde_9);
+                button10.setImageResource(R.drawable.rosa_10);
+                //animate!!!
+                button1.startAnimation(myAnim);
+                button2.startAnimation(myAnim);
+                button3.startAnimation(myAnim);
+                button4.startAnimation(myAnim);
+                button5.startAnimation(myAnim);
+                button6.startAnimation(myAnim);
+                button7.startAnimation(myAnim);
+                button8.startAnimation(myAnim);
+                button9.startAnimation(myAnim);
+                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                break;
+            case R.id.tabla10:
+                // do work for this Button
+
+                //cambiamos el src al color verde!!! esta tabla se hara
+                button1.setImageResource(R.drawable.verde_1);
+                button2.setImageResource(R.drawable.verde_2);
+                button3.setImageResource(R.drawable.verde_3);
+                button4.setImageResource(R.drawable.verde_4);
+                button5.setImageResource(R.drawable.verde_5);
+                button6.setImageResource(R.drawable.verde_6);
+                button7.setImageResource(R.drawable.verde_7);
+                button8.setImageResource(R.drawable.verde_8);
+                button9.setImageResource(R.drawable.verde_9);
+                button10.setImageResource(R.drawable.verde_10);
+                //animate!!!
+                button1.startAnimation(myAnim);
+                button2.startAnimation(myAnim);
+                button3.startAnimation(myAnim);
+                button4.startAnimation(myAnim);
+                button5.startAnimation(myAnim);
+                button6.startAnimation(myAnim);
+                button7.startAnimation(myAnim);
+                button8.startAnimation(myAnim);
+                button9.startAnimation(myAnim);
+                button10.startAnimation(myAnim);
+                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                break;
+        }
+
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    }
