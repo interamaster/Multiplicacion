@@ -11,12 +11,24 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.builder.AnimateGifMode;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class LoginActivity extends Activity {
+
+    private ImageView GifVew;
+
+
+
+
+
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -110,6 +122,26 @@ public class LoginActivity extends Activity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////mio///////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //definios quien es Gifview
+
+        GifVew =(ImageView)findViewById(R.id.picachu_gif);
+
+
+        ///animamos el pokemon!!!!
+
+
+        Ion.with(GifVew)
+                .error(R.drawable.rosa_1)
+                .animateGif(AnimateGifMode.ANIMATE)
+                // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
+                .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokemo_hablando);
     }
 
 
