@@ -18,14 +18,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-  import com.cardinalsolutions.android.arch.autowire.AndroidLayout;
-  import com.cardinalsolutions.android.arch.autowire.AndroidView;
-
-
-
-
-
-import jrdv.mio.com.entrenatablasmultiplicacion.R;
+import com.cardinalsolutions.android.arch.autowire.AndroidLayout;
+import com.cardinalsolutions.android.arch.autowire.AndroidView;
 
 
 @AndroidLayout(jrdv.mio.com.entrenatablasmultiplicacion.R.layout.activity_login_pad)
@@ -92,8 +86,12 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 	public static final String USER_PIN = "USER_PIN";
 	public static final int USER_PIN_MAX_CHAR = 3;
 
+
+    //preferences
+
     public static final String PREFS_NAME = "MyPrefsFile";
     public static final String PREF_BOOL_NINOYAOK ="false";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +108,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
 
 
-        Log.d(TAG, String.valueOf(alreadyloggedinbefore));
+        Log.d(TAG, "niño ya eligio tabla y nombre: "+String.valueOf(alreadyloggedinbefore));
 
 
 	    // only show the login pad if the  user hasn't logged in
@@ -122,6 +120,11 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         if (alreadyloggedinbefore)
         //si ya habiamos metido datos del niño y tablas maximas:
             {
+
+
+             //vemos el valor de la tablaMax que se guardo en public final variable en ajustesActivity:
+                Log.d(TAG, "niño ya eligio tablaMax "+ajustesActivity.TablaMaximaelegida);
+
             configureViews();
             configureAnimations();
             setEditTextListener();
@@ -131,7 +134,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
             //ve  a la pantalla de meter nombre y tabla maxima!!
 
-            Intent intent = new Intent(this, jrdv.mio.com.entrenatablasmultiplicacion.LoginActivity.class);
+            Intent intent = new Intent(this, jrdv.mio.com.entrenatablasmultiplicacion.ajustesActivity.class);
             startActivity(intent);
         }
 

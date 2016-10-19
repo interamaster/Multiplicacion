@@ -1,129 +1,33 @@
 package jrdv.mio.com.entrenatablasmultiplicacion;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.builder.AnimateGifMode;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
-public class LoginActivity extends Activity {
+import static android.content.ContentValues.TAG;
+import static jrdv.mio.com.entrenatablasmultiplicacion.LoginPadActivity.PREFS_NAME;
+
+public class ajustesActivity extends Activity {
 
     private ImageView GifVew;
 
-
-
-
-
-
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
-
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
-    /**
-     * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
-     */
-    private static final int UI_ANIMATION_DELAY = 300;
-    private final Handler mHideHandler = new Handler();
-    private View mContentView;
-    private final Runnable mHidePart2Runnable = new Runnable() {
-        @SuppressLint("InlinedApi")
-        @Override
-        public void run() {
-            // Delayed removal of status and navigation bar
-
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
-            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-    };
-    private View mControlsView;
-    private final Runnable mShowPart2Runnable = new Runnable() {
-        @Override
-        public void run() {
-            // Delayed display of UI elements
-            ActionBar actionBar = getActionBar();
-            if (actionBar != null) {
-                actionBar.show();
-            }
-            mControlsView.setVisibility(View.VISIBLE);
-        }
-    };
-    private boolean mVisible;
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
+    public static int TablaMaximaelegida;//la hago public static para poder accerdr a ellas desde otras class
+    public static final String PREF_TablaMAximaElegida="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_login);
-
-        mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
-
-
-        // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggle();
-            }
-        });
-
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-
-
+        setContentView(R.layout.activity_ajustes);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////mio///////////////////////////////////////////////////////////////////////////////
@@ -139,72 +43,71 @@ public class LoginActivity extends Activity {
 
         Ion.with(GifVew)
                 .error(R.drawable.rosa_1)
-                .animateGif(AnimateGifMode.ANIMATE)
+                .animateGif(AnimateGifMode.NO_ANIMATE)
                 // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
                 .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokemo_hablando);
+
+        //recuperamos el valor deTablaMax si habia de antes y si no le damos 1
+
+        SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+        int tablaMaxEnPref=pref.getInt(PREF_TablaMAximaElegida,0);//por defecto vale 0
+
+        Log.d(TAG, "PREF_TablaMAximaElegida:" +  tablaMaxEnPref);
+
     }
 
 
+    //deshabilitar boton back 1 vez
     @Override
     public void onBackPressed() {
         // Disable going back to the MainActivity
         moveTaskToBack(true);
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////PULSADO UN BOTON MIC/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void MicPulsado(View view) {
 
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100);
+        Log.d(TAG, "pulsado MIC"  );
     }
 
-    private void toggle() {
-        if (mVisible) {
-            hide();
-        } else {
-            show();
-        }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////PULSADO UN BOTON DONE/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public void DonePulsado(View view) {
+
+        Log.d(TAG, "pulsado DONE"  );
     }
 
-    private void hide() {
-        // Hide UI first
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-        mControlsView.setVisibility(View.GONE);
-        mVisible = false;
 
-        // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable);
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////PULSADO UN POKEMON/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void PulsadoPokemon(View view) {
+
+        Log.d(TAG, "pulsado POKEMON"  );
+
+        ///animamos el pokemon!!!!
+
+
+        Ion.with(GifVew)
+                .error(R.drawable.rosa_1)
+                .animateGif(AnimateGifMode.ANIMATE)
+                // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
+                .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokemo_hablando);
+
     }
 
-    @SuppressLint("InlinedApi")
-    private void show() {
-        // Show the system bar
-        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        mVisible = true;
-
-        // Schedule a runnable to display UI elements after a delay
-        mHideHandler.removeCallbacks(mHidePart2Runnable);
-        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
-    }
-
-    /**
-     * Schedules a call to hide() in [delay] milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////PULSADO UN BOTON DE TABLA/////////////////////////////////////////////////////////
@@ -234,6 +137,16 @@ public class LoginActivity extends Activity {
         myAnim.setInterpolator(interpolator);
 
 
+        ///animamos el pokemon!!!!
+
+
+        Ion.with(GifVew)
+                .error(R.drawable.rosa_1)
+                .animateGif(AnimateGifMode.ANIMATE_ONCE)
+                // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
+                .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokemo_hablando);
+
+
 
         switch (v.getId()) {
             case R.id.tabla1:
@@ -255,9 +168,9 @@ public class LoginActivity extends Activity {
                 //animate!!!
                 button1.startAnimation(myAnim);
 
-                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+                //guardamos el valor elegido
 
-
+                TablaMaximaelegida=1;
 
                 break;
             case R.id.tabla2:
@@ -278,8 +191,10 @@ public class LoginActivity extends Activity {
                 //animate!!!
                 button1.startAnimation(myAnim);
                 button2.startAnimation(myAnim);
-                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
 
+                //guardamos el valor elegido
+
+                TablaMaximaelegida=2;
                 break;
             case R.id.tabla3:
                 // do work for this Button
@@ -299,7 +214,11 @@ public class LoginActivity extends Activity {
                 button1.startAnimation(myAnim);
                 button2.startAnimation(myAnim);
                 button3.startAnimation(myAnim);
-                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                //guardamos el valor elegido
+
+                TablaMaximaelegida=3;
+
                 break;
             case R.id.tabla4:
                 // do work for this Button
@@ -320,7 +239,11 @@ public class LoginActivity extends Activity {
                 button2.startAnimation(myAnim);
                 button3.startAnimation(myAnim);
                 button4.startAnimation(myAnim);
-                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                //guardamos el valor elegido
+
+                TablaMaximaelegida=4;
+
                 break;
             case R.id.tabla5:
                 // do work for this Button
@@ -342,7 +265,10 @@ public class LoginActivity extends Activity {
                 button3.startAnimation(myAnim);
                 button4.startAnimation(myAnim);
                 button5.startAnimation(myAnim);
-                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                //guardamos el valor elegido
+
+                TablaMaximaelegida=5;
 
 
                 break;
@@ -367,7 +293,10 @@ public class LoginActivity extends Activity {
                 button4.startAnimation(myAnim);
                 button5.startAnimation(myAnim);
                 button6.startAnimation(myAnim);
-                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                //guardamos el valor elegido
+
+                TablaMaximaelegida=6;
 
                 break;
             case R.id.tabla7:
@@ -392,7 +321,10 @@ public class LoginActivity extends Activity {
                 button5.startAnimation(myAnim);
                 button6.startAnimation(myAnim);
                 button7.startAnimation(myAnim);
-                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                //guardamos el valor elegido
+
+                TablaMaximaelegida=7;
 
                 break;
             case R.id.tabla8:
@@ -418,7 +350,10 @@ public class LoginActivity extends Activity {
                 button6.startAnimation(myAnim);
                 button7.startAnimation(myAnim);
                 button8.startAnimation(myAnim);
-                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                //guardamos el valor elegido
+
+                TablaMaximaelegida=8;
 
                 break;
             case R.id.tabla9:
@@ -445,8 +380,10 @@ public class LoginActivity extends Activity {
                 button7.startAnimation(myAnim);
                 button8.startAnimation(myAnim);
                 button9.startAnimation(myAnim);
-                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
 
+                //guardamos el valor elegido
+
+                TablaMaximaelegida=9;
                 break;
             case R.id.tabla10:
                 // do work for this Button
@@ -473,14 +410,37 @@ public class LoginActivity extends Activity {
                 button8.startAnimation(myAnim);
                 button9.startAnimation(myAnim);
                 button10.startAnimation(myAnim);
-                //TODO guardar ivar con valor TABLA MAXIMA a PREGUNTAR!!
+
+                //guardamos el valor elegido
+
+                TablaMaximaelegida=10;
 
                 break;
         }
 
+
+
+
+                       //guardamos la Tabla elegida
+                       SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                       // We need an editor object to make changes
+                      SharedPreferences.Editor edit = pref.edit();
+                        edit.putInt(PREF_TablaMAximaElegida, TablaMaximaelegida);
+
+
+                        // Commit the changes
+                       edit.commit();
+
+                      Log.d(TAG, "niño ya eligio tablaMax "+TablaMaximaelegida);
+
+
+
     }
+
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    }
+}
