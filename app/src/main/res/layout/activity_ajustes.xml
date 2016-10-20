@@ -27,6 +27,20 @@
             android:onClick="PulsadoPokemon"
             />
 
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/pikachusipulsasView"
+            android:src="@drawable/p101"
+            android:background="@android:color/transparent"
+            android:layout_weight="5"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitCenter"
+
+            android:visibility="gone"
+            />
+
         <ImageButton
             android:id="@+id/micButton"
             android:layout_width="60dp"
@@ -137,6 +151,7 @@
                     android:tag="Thin"
                     android:layout_weight="1"
                     android:onClick="pulsadoNum"/>
+
                 <ImageButton
                     android:id="@+id/tabla5"
                     android:layout_width="100dp"

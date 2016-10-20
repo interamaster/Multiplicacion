@@ -22,6 +22,7 @@ import com.koushikdutta.ion.builder.AnimateGifMode;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 
 import static android.content.ContentValues.TAG;
 import static jrdv.mio.com.entrenatablasmultiplicacion.LoginPadActivity.PREFS_NAME;
@@ -29,6 +30,7 @@ import static jrdv.mio.com.entrenatablasmultiplicacion.LoginPadActivity.PREFS_NA
 public class ajustesActivity extends Activity {
 
     private ImageView GifVew;
+    private ImageView PokemonAnimadoView;
 
     public static int TablaMaximaelegida;//la hago public static para poder accerdr a ellas desde otras class
     public static final String PREF_TablaMAximaElegida="0";
@@ -57,7 +59,7 @@ public class ajustesActivity extends Activity {
         //definios quien es Gifview
 
         GifVew =(ImageView)findViewById(R.id.picachu_gif);
-
+        PokemonAnimadoView=(ImageView)findViewById(R.id.pikachusipulsasView);
 
         ///animamos el pokemon!!!!
 
@@ -158,7 +160,7 @@ public class ajustesActivity extends Activity {
 
         Log.d(TAG, "pulsado MIC"  );
 
-        speak("Estupendo di tu nombre alto y claro por favor");
+
 
         listen();
 
@@ -182,6 +184,23 @@ public class ajustesActivity extends Activity {
             startActivityForResult(i, 100);
         } catch (ActivityNotFoundException a) {
             Toast.makeText(ajustesActivity.this, "Your device doesn't support Speech Recognition", Toast.LENGTH_SHORT).show();
+            //si no es compatible pasamos del nombre y le ponemo ARTISTA
+
+            NombreNinoElegido="Artista";
+
+            //y lo guardamos
+
+            //guardamos el nombre elegido
+            SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+            // We need an editor object to make changes
+            SharedPreferences.Editor edit = pref.edit();
+            edit.putString(PREF_NOMBRE_NINO, NombreNinoElegido);
+
+
+            // Commit the changes
+            edit.commit();
+
+            Log.d(TAG, "niño ya tiene nombre "+NombreNinoElegido);
         }
     }
 
@@ -207,7 +226,26 @@ You get the result string from res.get(0)
     private void recognition(String text){
         Log.e("ha dicho",""+text);
 
-        Toast.makeText(ajustesActivity.this, "has dicho: "+text, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ajustesActivity.this, "has dicho: "+text, Toast.LENGTH_SHORT).show();
+
+        //le ponemos ese nombre:
+
+        NombreNinoElegido=text;
+
+
+        //guardamos el nombre elegido
+        SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        // We need an editor object to make changes
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString(PREF_NOMBRE_NINO, NombreNinoElegido);
+
+
+        // Commit the changes
+        edit.commit();
+
+        Log.d(TAG, "niño ya tiene nombre "+NombreNinoElegido);
+
+        speak("De acuerdo " + NombreNinoElegido +" ya sé tu nombre");
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////PULSADO UN BOTON DONE/////////////////////////////////////////////////////////
@@ -224,7 +262,7 @@ You get the result string from res.get(0)
         if (TablaMaximaelegida>=1 && !NombreNinoElegido.equals("NONAME")){
 
 
-            speak("Okei , vamos a ver si sabes de verdad esas tablas");
+            speak("Okei , vamos a ver si sabes de verdad esas tablas "+ NombreNinoElegido);
 
             //TODO salir de ajustes y volver a pantalla de multiplicaciones
         }
@@ -277,13 +315,76 @@ You get the result string from res.get(0)
 
             //TODO poner algun pokemo
 
+            //creamsos la animacion
+            final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
 
+            // Use bounce interpolator with amplitude 0.2 and frequency 20
+            BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+            myAnim.setInterpolator(interpolator);
+
+            //elegimos uno al azar
+            //TODO poner los numero correctos al azar
+
+            Random r = new Random();
+            int i1 = r.nextInt(151 - 101) + 101;
+            final String str = "p" + String.valueOf(i1);
+            PokemonAnimadoView.setImageDrawable
+                    (
+                            getResources().getDrawable(getResourceID(str, "drawable",
+                                    getApplicationContext()))
+                    );
+
+            //hacemos visible la PokemoAniamdoiView
+            PokemonAnimadoView.setVisibility(View.VISIBLE);
+
+            PokemonAnimadoView.startAnimation(myAnim);
+
+            //ponemos un listener para que lo haga invisble cuando acabe!!
+
+
+            myAnim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                    PokemonAnimadoView.setVisibility(View.INVISIBLE);
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
 
 
         }
 
     }
 
+
+    protected final static int getResourceID
+            (final String resName, final String resType, final Context ctx)
+    {
+        final int ResourceID =
+                ctx.getResources().getIdentifier(resName, resType,
+                        ctx.getApplicationInfo().packageName);
+        if (ResourceID == 0)
+        {
+            throw new IllegalArgumentException
+                    (
+                            "No resource string found with name " + resName
+                    );
+        }
+        else
+        {
+            return ResourceID;
+        }
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////PULSADO UN BOTON DE TABLA/////////////////////////////////////////////////////////
