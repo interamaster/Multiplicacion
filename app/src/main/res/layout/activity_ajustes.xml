@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/picachu_gif"
-            android:src="@drawable/pokemo_hablando"
+            android:src="@drawable/pokeball1"
             android:background="@android:color/transparent"
             android:layout_weight="5"
             android:layout_gravity="center_horizontal"
