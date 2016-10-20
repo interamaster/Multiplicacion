@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -26,6 +27,7 @@ import java.util.Random;
 
 import static android.content.ContentValues.TAG;
 import static jrdv.mio.com.entrenatablasmultiplicacion.LoginPadActivity.PREFS_NAME;
+import static jrdv.mio.com.entrenatablasmultiplicacion.LoginPadActivity.PREF_BOOL_NINOYAOK;
 
 public class ajustesActivity extends Activity {
 
@@ -265,6 +267,22 @@ You get the result string from res.get(0)
             speak("Okei , vamos a ver si sabes de verdad esas tablas "+ NombreNinoElegido);
 
             //TODO salir de ajustes y volver a pantalla de multiplicaciones
+
+
+            //guardamos  el PREF_BOOL_NINOYAOK a true!!!
+            SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+            // We need an editor object to make changes
+            SharedPreferences.Editor edit = pref.edit();
+            edit.putBoolean(PREF_BOOL_NINOYAOK, true);
+
+
+            // Commit the changes
+            edit.commit();
+
+           // Log.d(TAG, "niño ya ok:"+PREF_BOOL_NINOYAOK);
+
+
+            finish();
         }
 
         else
@@ -292,26 +310,36 @@ You get the result string from res.get(0)
 
         Log.d(TAG, "pulsado POKEMON"  );
 
+        //que vibre al pulsar
+
+
+        view. performHapticFeedback(1,2);
+
         ///cambiamos de pokemons!!!!
 
         vecespulsadoPokemon++;
 
         if(!pulsadoPokemon ) {
 
-            speak("oye , si me sigues pulsando al final te voy a tener que enseñar unos cuantos pokemos");
+            speak("oye , si me sigues pulsando al final te voy a tener que enseñar unos cuantos pokemons");
             pulsadoPokemon=true;
 
         }
 
-         if(vecespulsadoPokemon>7 && vecespulsadoPokemon<10) {
+         if(vecespulsadoPokemon>5 && vecespulsadoPokemon<7) {
 
-             speak("oye , para que voy a explotar");
+            // speak("oye , para que voy a explotar");
+             //ponemos un sonido
+
+             MediaPlayer mp = MediaPlayer.create(ajustesActivity.this, R.raw.pikachu5);
+             mp.start();
+
 
 
          }
 
 
-        if (vecespulsadoPokemon>=10 && vecespulsadoPokemon<30){
+        if (vecespulsadoPokemon>=7 && vecespulsadoPokemon<30){
 
             //TODO poner algun pokemo
 
@@ -336,6 +364,12 @@ You get the result string from res.get(0)
 
             //hacemos visible la PokemoAniamdoiView
             PokemonAnimadoView.setVisibility(View.VISIBLE);
+
+
+            //ponemos un sonido
+
+            MediaPlayer mp = MediaPlayer.create(ajustesActivity.this, R.raw.pikachu5);
+            mp.start();
 
             PokemonAnimadoView.startAnimation(myAnim);
 

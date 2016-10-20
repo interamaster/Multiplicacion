@@ -121,7 +121,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         //si ya habiamos metido datos del niño y tablas maximas:
             {
 
-
+            //TODO esto habria que quitarlo y poner la PREF a ya elegido
              //vemos el valor de la tablaMax que se guardo en public final variable en ajustesActivity:
                 Log.d(TAG, "niño ya eligio tablaMax "+ajustesActivity.TablaMaximaelegida);
 
@@ -131,6 +131,14 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
         }
         else {
+
+            //vemos el valor de la tablaMax que se guardo en public final variable en ajustesActivity:
+            Log.d(TAG, "niño ya eligio tablaMax "+ajustesActivity.TablaMaximaelegida);
+
+            configureViews();
+            configureAnimations();
+            setEditTextListener();
+
 
             //ve  a la pantalla de meter nombre y tabla maxima!!
 
@@ -543,5 +551,19 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         } else if (eventIn.getAction() == MotionEvent.ACTION_UP) {
                  ((TextView) viewIn).setTextColor(getResources().getColor(jrdv.mio.com.entrenatablasmultiplicacion.R.color.white));
         }
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////PULSADO UN BOTON POKEBALL/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void PulsadoPokeballVolverAjustes(View view) {
+
+
+        //ve  a la pantalla de meter nombre y tabla maxima!!
+
+        Intent intent = new Intent(this, jrdv.mio.com.entrenatablasmultiplicacion.ajustesActivity.class);
+        startActivity(intent);
+
     }
 }
