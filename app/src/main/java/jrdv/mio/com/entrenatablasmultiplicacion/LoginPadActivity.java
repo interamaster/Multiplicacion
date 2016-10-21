@@ -3,8 +3,11 @@ package jrdv.mio.com.entrenatablasmultiplicacion;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
+import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 import com.cardinalsolutions.android.arch.autowire.AndroidLayout;
 import com.cardinalsolutions.android.arch.autowire.AndroidView;
 
+import java.util.Locale;
 import java.util.Random;
 
 import static jrdv.mio.com.entrenatablasmultiplicacion.ajustesActivity.PREF_TablaMAximaElegida;
@@ -108,6 +112,10 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
     private TextView MultiplicacionTextview ;
 
+    //para hablar
+
+    private TextToSpeech textToSpeech;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +165,8 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             configureAnimations();
             setEditTextListener();
 
+                iniciaVoces();
+
 
 
 
@@ -173,6 +183,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             configureViews();
             configureAnimations();
             setEditTextListener();
+            iniciaVoces();
 
 
             //ve  a la pantalla de meter nombre y tabla maxima!!
@@ -181,7 +192,59 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             startActivity(intent);
         }
 
+
+
+
+
+
+}
+
+
+    private void iniciaVoces(){
+
+
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    Locale locale = new Locale("es", "ES");
+
+                    int result = textToSpeech.setLanguage(locale);
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "This Language is not supported");
+                    }
+
+                    // speak(saludoInicial);//aqui on habla de tiron!!!
+
+                } else {
+                    Log.e("TTS", "Initilization Failed!");
+                }
+            }
+        });
+
     }
+
+    //The speak() method takes a String parameter, which is the text you want Android to speak.
+    private void speak(String text){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+        }else{
+            textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
+
+//After speak() create another method to stop the TextToSpeech service when a user closes the app:
+
+    @Override
+    public void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
+    }
+
+
 
 
     @Override
@@ -239,6 +302,9 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         segundodigito =  r.nextInt(tablaMaxEnPref) + 1;// de 1 al avalor maximo de tabla
 
         MultiplicacionTextview.setText(String.valueOf(primerdigito) +"X"+ String.valueOf(segundodigito));
+
+
+        speak("Y cuanto es , "+primerdigito +"por"+segundodigito+"?");
 
         if ((primerdigito*segundodigito)<10) {
             USER_PIN_MAX_CHAR=1;
@@ -394,6 +460,14 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             //reseteo el numeor de aciertos
 
             numeroAciertos=0;
+
+
+            //que vibre al fallar
+
+            // vibration for 800 milliseconds
+            ((Vibrator)getSystemService(VIBRATOR_SERVICE)).vibrate(800);
+
+            speak("no");
 
 
         } else {
