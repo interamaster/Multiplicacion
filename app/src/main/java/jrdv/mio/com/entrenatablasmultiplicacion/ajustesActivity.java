@@ -264,9 +264,9 @@ You get the result string from res.get(0)
         if (TablaMaximaelegida>=1 && !NombreNinoElegido.equals("NONAME")){
 
 
-            speak("Okei , vamos a ver si sabes de verdad esas tablas "+ NombreNinoElegido);
+            speak("Okei"+ NombreNinoElegido);
 
-            //TODO salir de ajustes y volver a pantalla de multiplicaciones
+
 
 
             //guardamos  el PREF_BOOL_NINOYAOK a true!!!
@@ -341,7 +341,7 @@ You get the result string from res.get(0)
 
         if (vecespulsadoPokemon>=7 && vecespulsadoPokemon<30){
 
-            //TODO poner algun pokemo
+
 
             //creamsos la animacion
             final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
@@ -351,7 +351,6 @@ You get the result string from res.get(0)
             myAnim.setInterpolator(interpolator);
 
             //elegimos uno al azar
-            //TODO poner los numero correctos al azar
 
             Random r = new Random();
             int i1 = r.nextInt(151 - 101) + 101;

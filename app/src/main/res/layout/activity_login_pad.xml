@@ -55,13 +55,26 @@
         android:layout_alignParentEnd="true" />
 
 
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/pokeballbutton"
+        android:src="@drawable/settings_icon"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter"
+        android:onClick="PulsadoPokeballVolverAjustes"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
     <TableLayout
         android:id="@+id/activity_login_pad_table_layout"
         android:gravity="center"
         android:paddingTop="@dimen/twenty_dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
         <TableRow
@@ -237,18 +250,5 @@
         </TableRow>
 
     </TableLayout>
-
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/pokeballbutton"
-        android:src="@drawable/done_icon"
-        android:background="@android:color/transparent"
-
-        android:layout_gravity="center_horizontal"
-        android:scaleType="fitCenter"
-        android:onClick="PulsadoPokeballVolverAjustes"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

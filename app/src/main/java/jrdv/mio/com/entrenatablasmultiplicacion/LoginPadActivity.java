@@ -363,7 +363,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                 if (LoginPadActivity.this.mUserAccessCode.getText().length() == USER_PIN_MAX_CHAR) {
 
                     Log.e("INFO","hemos llegado al nuemro maximo");
-                    //TODO ver si es correcto o no y hacer animacion o borrar:
+
 
                     String numerometido=LoginPadActivity.this.mUserAccessCode.getText().toString();
 
@@ -574,20 +574,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                 }
                 break;
 
-          /*
-          TODO boton de login o acierto/error
-          case jrdv.mio.com.entrenatablasmultiplicacion.R.id.activity_login_access_code_login:
-                crossFade(
-                        getResources().getInteger(
-                                android.R.integer.config_longAnimTime),
-                        this.mLoginButton,
-                        getResources().getString(jrdv.mio.com.entrenatablasmultiplicacion.R.string.activity_login));
-                this.mLoginButton.setText("");
-                this.mLoginProgress.setVisibility(View.VISIBLE);
-                attemptLogin(this.mUserAccessCode.getText().toString());
-                break;
-
-                */
+        
             case jrdv.mio.com.entrenatablasmultiplicacion.R.id.activity_login_access_code_delete:
 
                // if (this.mLoginButton.getVisibility() == View.VISIBLE) {
