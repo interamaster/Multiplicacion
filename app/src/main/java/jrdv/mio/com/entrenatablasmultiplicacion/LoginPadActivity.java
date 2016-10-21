@@ -87,22 +87,22 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
     private boolean mDeleteIsShowing = false;
     private boolean mFailedLogin = false;
 
-	public static final String USER_PIN = "USER_PIN";
+
 	public static   int USER_PIN_MAX_CHAR = 2;
 
 
     //preferences
 
     public static final String PREFS_NAME = "MyPrefsFile";
-    public static final String PREF_BOOL_NINOYAOK ="false";
+    public static  final  String PREF_BOOL_NINOYAOK="niñook" ;
 
 
     //variables multiplicacion
 
-    int tablaMaxEnPref;
-    int primerdigito;
-    int segundodigito;
-    int numeroAciertos=0;
+    private int tablaMaxEnPref;
+    private int primerdigito;
+    private int segundodigito;
+    private int numeroAciertos=0;
 
     //textview multitplicacvion
 
@@ -121,6 +121,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
 
         boolean alreadyloggedinbefore =  pref.getBoolean(PREF_BOOL_NINOYAOK, false);//falso si no existe
+        tablaMaxEnPref=pref.getInt(ajustesActivity.PREF_TablaMAximaElegida,0);//por defecto vale 0
 
 
 
@@ -128,6 +129,15 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
         //textview multitplicacvion
         MultiplicacionTextview =(TextView)findViewById(R.id.preguntaMultiplicacion);
+
+
+
+
+         //tablaMaxEnPref=pref.getInt(ajustesActivity.PREF_TablaMAximaElegida,0);//por defecto vale 0
+
+
+
+
 
 
 	    // only show the login pad if the  user hasn't logged in
@@ -140,9 +150,8 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         //si ya habiamos metido datos del niño y tablas maximas:
             {
 
-            //TODO esto habria que quitarlo y poner la PREF a ya elegido
-             //vemos el valor de la tablaMax que se guardo en public final variable en ajustesActivity:
-                Log.d(TAG, "niño ya eligio tablaMax "+ajustesActivity.TablaMaximaelegida);
+
+                Log.d(TAG, "niño ya eligio tablaMax "+tablaMaxEnPref);
 
             configureViews();
             configureAnimations();
@@ -151,9 +160,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
 
 
-             //TODO ejemplo de una multiplicacion
 
-                  tablaMaxEnPref=pref.getInt(PREF_TablaMAximaElegida,0);//por defecto vale 0
 
                generaMultiplicacion();
 
@@ -161,8 +168,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         }
         else {
 
-            //vemos el valor de la tablaMax que se guardo en public final variable en ajustesActivity:
-            Log.d(TAG, "niño ya eligio tablaMax "+ajustesActivity.TablaMaximaelegida);
+
 
             configureViews();
             configureAnimations();
@@ -175,6 +181,23 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             startActivity(intent);
         }
 
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "VUELTO A MAIN DESDE AJSUTES!!! "  );
+
+
+        //recupermos los valores del MAXTABLE ACTUALIZADOS
+
+        SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+
+        tablaMaxEnPref=pref.getInt(PREF_TablaMAximaElegida,0);//por defecto vale 0
+
+        generaMultiplicacion();
     }
 
     private void attemptLogin(String userPinIn) {
@@ -211,10 +234,9 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
 
 
-
         Random r = new Random();
-        segundodigito = r.nextInt(10 - 1) + 1;//de 1 a 10
-        primerdigito =  r.nextInt(tablaMaxEnPref - 1) + 1;// de 1 al avalor maximo de tabla
+        primerdigito = r.nextInt(10 - 1) + 1;//de 1 a 10
+        segundodigito =  r.nextInt(tablaMaxEnPref) + 1;// de 1 al avalor maximo de tabla
 
         MultiplicacionTextview.setText(String.valueOf(primerdigito) +"X"+ String.valueOf(segundodigito));
 

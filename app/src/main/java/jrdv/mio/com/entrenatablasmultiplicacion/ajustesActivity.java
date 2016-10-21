@@ -35,8 +35,8 @@ public class ajustesActivity extends Activity {
     private ImageView PokemonAnimadoView;
 
     public static int TablaMaximaelegida;//la hago public static para poder accerdr a ellas desde otras class
-    public static final String PREF_TablaMAximaElegida="0";
-    public static  String PREF_NOMBRE_NINO;
+    public static  final String PREF_TablaMAximaElegida="PrefTablaMax";
+    public static  final String PREF_NOMBRE_NINO="nombrenino";
     private String NombreNinoElegido;
     private boolean pulsadoPokemon=false;
     private int vecespulsadoPokemon=0;
@@ -150,7 +150,7 @@ public class ajustesActivity extends Activity {
         // Disable going back to the MainActivity
         moveTaskToBack(true);
 
-        speak("Si quieres salir pulsa de nuevo atras");
+
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -737,7 +737,7 @@ You get the result string from res.get(0)
 
 
                        //guardamos la Tabla elegida
-                       SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                       SharedPreferences pref = getSharedPreferences(LoginPadActivity.PREFS_NAME, Context.MODE_PRIVATE);
                        // We need an editor object to make changes
                       SharedPreferences.Editor edit = pref.edit();
                         edit.putInt(PREF_TablaMAximaElegida, TablaMaximaelegida);
