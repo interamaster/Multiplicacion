@@ -21,6 +21,10 @@ import android.widget.TextView;
 import com.cardinalsolutions.android.arch.autowire.AndroidLayout;
 import com.cardinalsolutions.android.arch.autowire.AndroidView;
 
+import java.util.Random;
+
+import static jrdv.mio.com.entrenatablasmultiplicacion.ajustesActivity.PREF_TablaMAximaElegida;
+
 
 @AndroidLayout(jrdv.mio.com.entrenatablasmultiplicacion.R.layout.activity_login_pad)
 
@@ -84,13 +88,25 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
     private boolean mFailedLogin = false;
 
 	public static final String USER_PIN = "USER_PIN";
-	public static final int USER_PIN_MAX_CHAR = 3;
+	public static   int USER_PIN_MAX_CHAR = 2;
 
 
     //preferences
 
     public static final String PREFS_NAME = "MyPrefsFile";
     public static final String PREF_BOOL_NINOYAOK ="false";
+
+
+    //variables multiplicacion
+
+    int tablaMaxEnPref;
+    int primerdigito;
+    int segundodigito;
+    int numeroAciertos=0;
+
+    //textview multitplicacvion
+
+    private TextView MultiplicacionTextview ;
 
 
     @Override
@@ -110,6 +126,9 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
         Log.d(TAG, "niño ya eligio tabla y nombre: "+String.valueOf(alreadyloggedinbefore));
 
+        //textview multitplicacvion
+        MultiplicacionTextview =(TextView)findViewById(R.id.preguntaMultiplicacion);
+
 
 	    // only show the login pad if the  user hasn't logged in
 	  /*  if (didLogIn()) {
@@ -128,6 +147,16 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             configureViews();
             configureAnimations();
             setEditTextListener();
+
+
+
+
+             //TODO ejemplo de una multiplicacion
+
+                  tablaMaxEnPref=pref.getInt(PREF_TablaMAximaElegida,0);//por defecto vale 0
+
+               generaMultiplicacion();
+
 
         }
         else {
@@ -177,23 +206,32 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-	private void saveUserPinToSharedPrefs(String loginResponse, String userPinIn) {
-		Logger.d(TAG, "Login Response: " + loginResponse);
-		this.mPreferencesEditor.putString(USER_PIN, userPinIn);
-		this.mPreferencesEditor.commit();
-	}
-
-	private boolean didLogIn() {
-		if (this.mSharedPreferences.getString(USER_PIN, null) != null) {
-			return true;
-		}
-		return false;
+	private void generaMultiplicacion(){
 
 
-	}
 
-    private void closeActivity() {
-        //close this activity and launch your "home" activity
+
+
+        Random r = new Random();
+        segundodigito = r.nextInt(10 - 1) + 1;//de 1 a 10
+        primerdigito =  r.nextInt(tablaMaxEnPref - 1) + 1;// de 1 al avalor maximo de tabla
+
+        MultiplicacionTextview.setText(String.valueOf(primerdigito) +"X"+ String.valueOf(segundodigito));
+
+        if ((primerdigito*segundodigito)<10) {
+            USER_PIN_MAX_CHAR=1;
+
+        }
+        else if ((primerdigito*segundodigito)==100){
+            USER_PIN_MAX_CHAR=3;
+
+        }
+        else {
+            USER_PIN_MAX_CHAR=2;
+        }
+
+
+
     }
 
     private void configureViews() {
@@ -243,7 +281,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     int numeroenINT=Integer.parseInt(numerometido);
 
-                    if (numeroenINT==123) {
+                    if (numeroenINT==(primerdigito*segundodigito)) {
 
                         //hemos acertado siguiente:
                         animateLoginButtonInOut(false);
@@ -331,6 +369,11 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             //hago el shake
             this.mUserAccessCode.startAnimation(this.mShakeAnimation);
 
+            //reseteo el numeor de aciertos
+
+            numeroAciertos=0;
+
+
         } else {
             ////si hemos acertado:
 
@@ -341,6 +384,35 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             //borramos numero
 
             LoginPadActivity.this.mUserAccessCode.setText("");
+
+            //aumentamos el num de qaciertos
+
+            numeroAciertos++;
+            Log.e("INFO","numerode aciertos: "+ numeroAciertos);
+
+
+            if (numeroAciertos==30){
+
+                //TODO video de premio 1
+
+            }
+
+            if (numeroAciertos==50){
+
+                //TODO video de premio 2
+
+            }
+
+            if (numeroAciertos==70){
+
+                //TODO video de premio 3
+            }
+
+
+            //generamos nueva multiplicacion
+
+
+            generaMultiplicacion();
         }
     }
 

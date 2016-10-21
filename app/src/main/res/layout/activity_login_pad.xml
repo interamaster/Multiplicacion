@@ -6,20 +6,20 @@
     android:background="@color/blue" >
 
     <TextView
-        android:id="@+id/activity_login_access_code"
+        android:id="@+id/preguntaMultiplicacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/activity_login_enter_access_code"
         android:textColor="@color/white"
-        android:textSize="@dimen/twenty_dp"
+        android:textSize="@dimen/fourty_dp"
         android:tag="Medium"
         android:gravity="center"
-        android:paddingTop="@dimen/thirty_dp"
+        android:paddingTop="@dimen/ten_dp"
         android:paddingBottom="@dimen/ten_dp"/>
 
     <RelativeLayout
         android:id="@+id/login_text_button_layout"
-        android:layout_below="@id/activity_login_access_code"
+        android:layout_below="@id/preguntaMultiplicacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
