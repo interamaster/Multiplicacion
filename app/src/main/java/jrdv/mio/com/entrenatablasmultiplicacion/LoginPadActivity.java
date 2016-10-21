@@ -121,6 +121,14 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //TODO  borrar
+        //////////////////////////////////////////////////////////////////////////
+        //ve  a la pantalla de listview para ver como queda
+
+        Intent intent2 = new Intent(this, jrdv.mio.com.entrenatablasmultiplicacion.PokedexActivity.class);
+        startActivity(intent2);
+
+        //////////////////////////////////////////////////////////////////////////
 
 
         //recupermos los valores del SharedPRefs sis e guardaron tras el signup activity
