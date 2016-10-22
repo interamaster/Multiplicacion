@@ -10,7 +10,7 @@
     <string name="activity_login_save_user_num">Save</string>
     <string name="activity_login_error">Error logging in, check your pin and try again.</string>
     <string name="activity_login_no_pin">You must type in a Pin #</string>
-    <string name="activity_login_delete">Delete</string>
+    <string name="activity_login_delete">BORRAR</string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>

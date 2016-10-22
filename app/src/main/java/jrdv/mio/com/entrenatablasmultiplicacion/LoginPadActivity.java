@@ -126,14 +126,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO  borrar
-        //////////////////////////////////////////////////////////////////////////
-        //ve  a la pantalla de listview para ver como queda
 
-        Intent intent2 = new Intent(this, jrdv.mio.com.entrenatablasmultiplicacion.PokedexActivity.class);
-        startActivity(intent2);
-
-        //////////////////////////////////////////////////////////////////////////
 
 
         //recupermos los valores del SharedPRefs sis e guardaron tras el signup activity
@@ -537,6 +530,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
 
 
+                    speak("acabas de ganar 1 punto para tu pokedex");
 
 
 
@@ -921,6 +915,17 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
         Intent intent = new Intent(this, jrdv.mio.com.entrenatablasmultiplicacion.ajustesActivity.class);
         startActivity(intent);
+
+    }
+
+    public void PulsadoPokeballVerListaPokemon(View view) {
+
+        //ve  a la pantalla los poekmons!!"!
+
+
+        Intent intent2 = new Intent(this, jrdv.mio.com.entrenatablasmultiplicacion.PokedexActivity.class);
+        startActivity(intent2);
+
 
     }
 }

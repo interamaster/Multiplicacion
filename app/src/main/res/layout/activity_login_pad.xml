@@ -40,16 +40,19 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/activity_login_access_code_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/twenty_dp"
-        android:paddingRight="@dimen/twenty_dp"
-        android:text="@string/activity_login_delete"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sixteen_sp"
-        android:tag="Medium"
+
+
+
+          <ImageView
+         android:layout_width="80dp"
+          android:layout_height="80dp"
+        android:id="@+id/ajustesbutton"
+         android:src="@drawable/poke_ball_icon"
+         android:background="@android:color/transparent"
+         android:padding="10dp"
+         android:layout_gravity="center_horizontal"
+         android:scaleType="fitCenter"
+         android:onClick="PulsadoPokeballVerListaPokemon"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -58,7 +61,7 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/pokeballbutton"
+        android:id="@+id/pokedexbutton"
         android:src="@drawable/settings_icon"
         android:background="@android:color/transparent"
         android:padding="10dp"
@@ -67,6 +70,7 @@
         android:onClick="PulsadoPokeballVolverAjustes"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
 
     <TableLayout
         android:id="@+id/activity_login_pad_table_layout"
@@ -232,6 +236,20 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/eight_dp"
             android:gravity="center">
+            <TextView
+                android:id="@+id/nousao"
+                android:layout_width="@dimen/seventy_dp"
+                android:layout_height="@dimen/seventy_dp"
+                android:gravity="center"
+                android:paddingBottom="@dimen/two_dp"
+                android:layout_marginLeft="@dimen/eight_dp"
+                android:layout_marginRight="@dimen/eight_dp"
+                android:background="@drawable/login_pad_circle"
+                android:textSize="@dimen/thirty_two_sp"
+                android:textColor="@color/white"
+                android:text="@string/seven"
+                android:tag="Thin"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/zero_button"
@@ -246,6 +264,20 @@
                 android:textColor="@color/white"
                 android:text="@string/zero"
                 android:tag="Thin"/>
+            <TextView
+                android:id="@+id/activity_login_access_code_delete"
+                android:layout_width="@dimen/seventy_dp"
+                android:layout_height="@dimen/seventy_dp"
+                android:gravity="center"
+                android:paddingBottom="@dimen/two_dp"
+                android:layout_marginLeft="@dimen/eight_dp"
+                android:layout_marginRight="@dimen/eight_dp"
+
+                android:textSize="@dimen/thirteen_dp"
+                android:textColor="@color/white"
+                android:text="BORRAR"
+                android:tag="Thin"/>
+
 
         </TableRow>
 

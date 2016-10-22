@@ -90,7 +90,8 @@ public class ajustesActivity extends Activity {
 
         Log.d(TAG, "PREF_NOMBRE_NINO:" +  NombreNinoElegido);
 
-          saludoInicial="Hola , "+NombreNinoElegido +" Quieres aumentar la dificultad? , asi me gusta elije una nueva tabla , o si quieres cambiar tu nombre , pulsa de nuevo en microfono";
+          saludoInicial="Hola , "+NombreNinoElegido +" Quieres aumentar la dificultad? , asi me gusta elije una nueva tabla , o si quieres cambiar tu nombre , pulsa de nuevo " +
+                  "en microfono pero perderas todos tus pokemons";
 
         if (NombreNinoElegido.equals("NONAME")){
             //si no tiene nombre aun del niño:
