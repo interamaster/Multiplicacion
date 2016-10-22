@@ -1,8 +1,10 @@
 package jrdv.mio.com.entrenatablasmultiplicacion;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -17,11 +19,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cardinalsolutions.android.arch.autowire.AndroidLayout;
 import com.cardinalsolutions.android.arch.autowire.AndroidView;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.builder.AnimateGifMode;
 
 import java.util.Locale;
 import java.util.Random;
@@ -120,6 +126,11 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
     //PARA LOS PUNTOS
 
     private int puntosActuales;
+    private String NombreNinoElegido;
+
+    //para el pokjemon oculto
+
+    private ImageView PokemonOcultoAnimadoView;
 
 
     @Override
@@ -127,7 +138,10 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
 
 
+        //definios quien es Gifview
 
+
+        PokemonOcultoAnimadoView=(ImageView)findViewById(R.id.pokemonocultoview);
 
         //recupermos los valores del SharedPRefs sis e guardaron tras el signup activity
 
@@ -137,6 +151,12 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         boolean alreadyloggedinbefore =  pref.getBoolean(PREF_BOOL_NINOYAOK, false);//falso si no existe
         tablaMaxEnPref=pref.getInt(ajustesActivity.PREF_TablaMAximaElegida,0);//por defecto vale 0
         puntosActuales=pref.getInt(PREF_PUNTOS_PARA_VER_POKEMONS,0);//por defecto vale 0
+
+        //recupoeramos el nombre delk niño si tenia si no cambia el texto de wellcome
+
+
+        NombreNinoElegido= pref.getString(ajustesActivity.PREF_NOMBRE_NINO,"NONAME");
+
 
 
         Log.d(TAG, "niño ya eligio tabla y nombre: "+String.valueOf(alreadyloggedinbefore));
@@ -478,7 +498,6 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
 
 
-
             switch (numeroAciertos) {
 
                 case 1://1 punto mas
@@ -529,10 +548,26 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     Log.d(TAG, "niño ya AHORA TIENE  "+puntosActuales + " PUNTOS");
 
 
+                    //TODO esto no suena porque suena la siguinete multiploicacion
+                   // speak("acabas de ganar 1 punto para tu pokedex");
 
-                    speak("acabas de ganar 1 punto para tu pokedex");
+                    //avisamos del punto conseguido!!!
 
+                    final Dialog dialog = new Dialog(this);
+                    dialog.setContentView(R.layout.dialogalertlayout);
+                    dialog.setTitle(NombreNinoElegido);
 
+                    TextView textView = (TextView) dialog.findViewById(R.id.dialogtext);
+                    textView.setText("HAS GANADO 1 PUNTO!!!");
+
+                    ImageButton btnExit = (ImageButton) dialog.findViewById(R.id.btnExit);
+                    btnExit.setOnClickListener(new View.OnClickListener() {
+                        @Override public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    // show dialog on screen
+                    dialog.show();
 
 
                     break;
@@ -585,6 +620,24 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                 Log.d(TAG, "niño ya AHORA TIENE  "+puntosActuales + " PUNTOS");
 
+                //avisamos del punto conseguido!!!
+
+                final Dialog dialog2 = new Dialog(this);
+                dialog2.setContentView(R.layout.dialogalertlayout);
+                dialog2.setTitle(NombreNinoElegido);
+
+                TextView textView2 = (TextView) dialog2.findViewById(R.id.dialogtext);
+                textView2.setText("HAS GANADO 2 PUNTOS!!");
+
+                ImageButton btnExit2 = (ImageButton) dialog2.findViewById(R.id.btnExit);
+                btnExit2.setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        dialog2.dismiss();
+                    }
+                });
+                // show dialog on screen
+                dialog2.show();
+
                     break;
 
                 case 3://2 puntos mas
@@ -630,6 +683,26 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     // Commit the changes
                     edit.commit();
+
+
+                    //avisamos del punto conseguido!!!
+
+                    final Dialog dialog3 = new Dialog(this);
+                    dialog3.setContentView(R.layout.dialogalertlayout);
+                    dialog3.setTitle(NombreNinoElegido);
+
+                    TextView textView3 = (TextView) dialog3.findViewById(R.id.dialogtext);
+                    textView3.setText("HAS GANADO 3 PUNTOS!!");
+
+                    ImageButton btnExit3 = (ImageButton) dialog3.findViewById(R.id.btnExit);
+                    btnExit3.setOnClickListener(new View.OnClickListener() {
+                        @Override public void onClick(View v) {
+                            dialog3.dismiss();
+                        }
+                    });
+                    // show dialog on screen
+                    dialog3.show();
+
 
                     Log.d(TAG, "niño ya AHORA TIENE  "+puntosActuales + " PUNTOS");
 
@@ -685,9 +758,157 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     // Commit the changes
                     edit.commit();
 
+
+                    //avisamos del punto conseguido!!!
+
+                    final Dialog dialog4 = new Dialog(this);
+                    dialog4.setContentView(R.layout.dialogalertlayout);
+                    dialog4.setTitle(NombreNinoElegido);
+
+                    TextView textView4 = (TextView) dialog4.findViewById(R.id.dialogtext);
+                    textView4.setText("HAS GANADO 5 PUNTOS!!");
+
+                    ImageButton btnExit4 = (ImageButton) dialog4.findViewById(R.id.btnExit);
+                    btnExit4.setOnClickListener(new View.OnClickListener() {
+                        @Override public void onClick(View v) {
+                            dialog4.dismiss();
+
+                            // TODO video de premio 1
+
+                            //creamsos la animacion
+                            final Animation myAnim = AnimationUtils.loadAnimation(LoginPadActivity.this, R.anim.bounce2);
+
+                            // Use bounce interpolator with amplitude 0.2 and frequency 20
+                            BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+                            myAnim.setInterpolator(interpolator);
+
+
+                            //elegimos uno al azar
+
+                            Random r = new Random();
+                            int i1 = r.nextInt(3 - 1) + 1;
+                            final String str = "pokemon_animado" + String.valueOf(i1);
+                            PokemonOcultoAnimadoView.setImageDrawable
+                                    (
+                                            getResources().getDrawable(getResourceID(str, "drawable",
+                                                    getApplicationContext()))
+                                    );
+
+                            //hacemos visible la PokemoAniamdoiView
+                            PokemonOcultoAnimadoView.setVisibility(View.VISIBLE);
+
+
+                            //lo hacemo el gif animado:
+
+                                /*
+                            //ASI DA ERROR DE GIF RESOURCE Y PONE EL DE ERROR...NPI
+                            String finalResourceparaIon="R.drawable."+str;
+
+
+                            Ion.with(PokemonOcultoAnimadoView)
+                                    .error(R.drawable.rosa_1)
+                                    .animateGif(AnimateGifMode.ANIMATE)
+                                    // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
+                                     .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokemon_animado1);
+                                    //.load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + finalResourceparaIon);
+
+
+                            */
+
+                            //ponemos un sonido
+
+                            MediaPlayer mp = MediaPlayer.create(LoginPadActivity.this, R.raw.pikachu5);
+                            mp.start();
+
+
+
+                            switch (i1){
+
+                                case 1:
+
+                                    Ion.with(PokemonOcultoAnimadoView)
+                                            .error(R.drawable.rosa_1)
+                                            .animateGif(AnimateGifMode.ANIMATE)
+                                            // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
+                                            .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokemon_animado1);
+
+                                    //animamos
+                                    PokemonOcultoAnimadoView.startAnimation(myAnim);
+
+
+                                    break;
+
+                                case 2:
+
+                                    Ion.with(PokemonOcultoAnimadoView)
+                                            .error(R.drawable.rosa_1)
+                                            .animateGif(AnimateGifMode.ANIMATE)
+                                            // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
+                                            .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokemon_animado2);
+
+                                    //animamos
+                                    PokemonOcultoAnimadoView.startAnimation(myAnim);
+
+                                    break;
+
+                                case 3:
+
+                                    Ion.with(PokemonOcultoAnimadoView)
+                                            .error(R.drawable.rosa_1)
+                                            .animateGif(AnimateGifMode.ANIMATE)
+                                            // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
+                                            .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokemon_animado3);
+
+                                    //animamos
+                                    PokemonOcultoAnimadoView.startAnimation(myAnim);
+
+
+                                    break;
+
+
+
+                            }
+
+
+
+
+                            //ponemos un listener para que lo haga invisble cuando acabe!!
+
+
+                            myAnim.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+
+                                    PokemonOcultoAnimadoView.setVisibility(View.INVISIBLE);
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+                            });
+
+
+                        }
+
+
+
+
+
+                    });
+                    // show dialog on screen
+                    dialog4.show();
+
                     Log.d(TAG, "niño ya AHORA TIENE  "+puntosActuales + " PUNTOS");
 
-                 // TODO video de premio 1
+
+
 
 
                     break;
@@ -925,6 +1146,26 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
         Intent intent2 = new Intent(this, jrdv.mio.com.entrenatablasmultiplicacion.PokedexActivity.class);
         startActivity(intent2);
+
+
+    }
+
+
+    protected final static int getResourceID (final String resName, final String resType, final Context ctx) {
+        final int ResourceID =  ctx.getResources().getIdentifier(resName, resType, ctx.getApplicationInfo().packageName);
+        if (ResourceID == 0) {
+
+
+
+            //en vez de una excepcion que lo ponga en el log solo
+
+            Log.e("INFO", "ojo no existe el resource: " + resName);
+            return 0;
+
+
+        } else {
+            return ResourceID;
+        }
 
 
     }

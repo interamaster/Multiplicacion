@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
@@ -109,11 +111,16 @@ public class PokedexActivity extends Activity {
 */
 
     //para el sonido del pokemon
-private MediaPlayer mp ;
+    private MediaPlayer mp;
 
     //para los puntos
 
-    private int puntospokemo ;
+    private int puntospokemo;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,11 +134,9 @@ private MediaPlayer mp ;
         SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = pref.edit();
 
-          puntospokemo = pref.getInt(LoginPadActivity.PREF_PUNTOS_PARA_VER_POKEMONS, 0);//por defecto vale 0
+        puntospokemo = pref.getInt(LoginPadActivity.PREF_PUNTOS_PARA_VER_POKEMONS, 0);//por defecto vale 0
 
         Log.e("INFO", "puntos par al PokeDexActivity: " + puntospokemo);
-
-
 
 
         String nombreimagenpokemon;
@@ -187,17 +192,24 @@ private MediaPlayer mp ;
 
                 //sacamos el int del resource del mp3 solo si esta en los puntos
 
-                if (position <= puntospokemo){
+                if (position <= puntospokemo) {
 
                     int sonidomp3 = getResourceID(nombreimagen, "raw", getApplicationContext());
-                    mp = MediaPlayer.create(PokedexActivity.this, sonidomp3);
-                    mp.start();
 
+                    if (sonidomp3!=0) {
+
+                        //solo sonido si tiene
+                        mp = MediaPlayer.create(PokedexActivity.this, sonidomp3);
+                        mp.start();
+                    }
+
+                    }
                 }
             }
-        });
 
-    }
+            );
+
+        }
 
     public void SalirPokedex(View view) {
 
@@ -205,16 +217,18 @@ private MediaPlayer mp ;
     }
 
 
-    protected final static int getResourceID
-            (final String resName, final String resType, final Context ctx) {
-        final int ResourceID =
-                ctx.getResources().getIdentifier(resName, resType,
-                        ctx.getApplicationInfo().packageName);
+    protected final static int getResourceID (final String resName, final String resType, final Context ctx) {
+        final int ResourceID =  ctx.getResources().getIdentifier(resName, resType, ctx.getApplicationInfo().packageName);
         if (ResourceID == 0) {
-            throw new IllegalArgumentException
-                    (
-                            "No resource string found with name " + resName
-                    );
+
+
+
+            //en vez de una excepcion que lo ponga en el log solo
+
+            Log.e("INFO", "ojo no existe el resource: " + resName);
+            return 0;
+
+
         } else {
             return ResourceID;
         }
