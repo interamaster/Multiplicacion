@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.text.Editable;
@@ -99,6 +98,8 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
     public static final String PREFS_NAME = "MyPrefsFile";
     public static  final  String PREF_BOOL_NINOYAOK="niñook" ;
+    public static final String PREF_PUNTOS_PARA_VER_POKEMONS="puntospokemos";//max 151
+
 
 
     //variables multiplicacion
@@ -115,6 +116,10 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
     //para hablar
 
     private TextToSpeech textToSpeech;
+
+    //PARA LOS PUNTOS
+
+    private int puntosActuales;
 
 
     @Override
@@ -138,11 +143,11 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
         boolean alreadyloggedinbefore =  pref.getBoolean(PREF_BOOL_NINOYAOK, false);//falso si no existe
         tablaMaxEnPref=pref.getInt(ajustesActivity.PREF_TablaMAximaElegida,0);//por defecto vale 0
-
+        puntosActuales=pref.getInt(PREF_PUNTOS_PARA_VER_POKEMONS,0);//por defecto vale 0
 
 
         Log.d(TAG, "niño ya eligio tabla y nombre: "+String.valueOf(alreadyloggedinbefore));
-
+        Log.d(TAG, "niño tiene : "+puntosActuales + "PUNTOS");
         //textview multitplicacvion
         MultiplicacionTextview =(TextView)findViewById(R.id.preguntaMultiplicacion);
 
@@ -271,34 +276,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         generaMultiplicacion();
     }
 
-    private void attemptLogin(String userPinIn) {
-        /*
-         Details left out for brevity and the numerous was one can attempt a login, but...
-         attempt your login here and grab the response...
 
-	    If your login is a success, pass the user pin to save to shared prefs and close your
-	    activity
-
-	    saveUserPinToSharedPrefs("success", userPinIn);
-	    closeActivity();
-
-	    else run animation and reset the text field...
-
-	    Wrapping the failed response in a handler to pause execution so we can demo the animation.
-	    You do not need the handler in real world use!!
-	    */
-
-	    Handler handler = new Handler();
-	    handler.postDelayed(new Runnable() {
-		    @Override
-		    public void run() {
-			    mFailedLogin = true;
-			    animateLoginButtonInOut(false);
-			    mUserAccessCode.setText("");
-		    }
-	    }, 3000);
-
-    }
 
 	private void generaMultiplicacion(){
 
@@ -380,13 +358,13 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     if (numeroenINT==(primerdigito*segundodigito)) {
 
                         //hemos acertado siguiente:
-                        animateLoginButtonInOut(false);
+                        ChequeaResultado(false);
                     }
 
                     else{
 
                         //hemos fallado
-                        animateLoginButtonInOut(true);
+                        ChequeaResultado(true);
 
 
                     }
@@ -440,7 +418,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
-    private void animateLoginButtonInOut(boolean animateIn) {
+    private void ChequeaResultado(boolean fallo) {
 
         /*
         TODO animar el borrado del numero metido
@@ -458,7 +436,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
         //lo hago con el numero metido
 
-        if (animateIn) {
+        if (fallo) {
             //si hemos fallado:
           //  this.mUserAccessCode.startAnimation(this.mAnimSlideIn);
 
@@ -482,8 +460,8 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             ////si hemos acertado:
 
             //this.mLoginProgress.setVisibility(View.GONE);
-           // this.mUserAccessCode.startAnimation(this.mAnimSlideOut);
-            Log.e("INFO","acertaste!!!!!");
+            // this.mUserAccessCode.startAnimation(this.mAnimSlideOut);
+            Log.e("INFO", "acertaste!!!!!");
 
             //borramos numero
 
@@ -492,27 +470,243 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             //aumentamos el num de qaciertos
 
             numeroAciertos++;
-            Log.e("INFO","numerode aciertos: "+ numeroAciertos);
+            Log.e("INFO", "numerode aciertos: " + numeroAciertos);
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////LOGICA DE LOS PUNTOS/////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-            if (numeroAciertos==30){
+            //TODO recupermos los puntos(aunque se podria quitar ya se recuperanen oncreate!!)
+            SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor edit = pref.edit();
 
-                //TODO video de premio 1
+            puntosActuales = pref.getInt(PREF_PUNTOS_PARA_VER_POKEMONS, 0);//por defecto vale 0
 
-            }
 
-            if (numeroAciertos==50){
+
+
+            switch (numeroAciertos) {
+
+                case 1://1 punto mas
+
+
+
+
+                    //aqui tenemos 3 variables a controlar:
+                    //1º)la tabalamaxima elegida:tablaMaxEnPref
+                    //2º)el numero de aciertos:numeroAciertos
+                    //3º)lo puntos que ya tenia:puntosActuales
+
+
+                    //si ya tenemos los 151 ptos maximos no se suman mas!!
+
+                    if (puntosActuales >= 151) {
+                        break;
+                    }
+
+
+                    //ahora dependiendo del nivel qu este puede conseguir un numero maximo
+                    //tabla 1:max 10 ptos
+                    //tabla 2:max 20 ptos
+                    //tabla 3:max 30 ptos
+                    // tabla 4:max 40 ptos
+                    // tabla 5:max 50 ptos
+                    //tabla 6:max 60 ptos
+                    //tabla 7:max 70 ptos
+                    //tabla 8:max 80 ptos
+                    //tabla 9:max 90 ptos
+                    //tabla 10:max 151 ptos
+
+                    if (tablaMaxEnPref!=10 && ((tablaMaxEnPref*10)<puntosActuales) ){
+
+                        //salimos ya tenemos los maximos tambien salvo en 10 que pueden ser 150
+                        break;
+                    }
+
+
+                    puntosActuales++;
+
+                    edit.putInt(PREF_PUNTOS_PARA_VER_POKEMONS, puntosActuales);
+
+
+                    // Commit the changes
+                    edit.commit();
+
+                    Log.d(TAG, "niño ya AHORA TIENE  "+puntosActuales + " PUNTOS");
+
+
+
+
+
+
+
+                    break;
+
+            case 2://2 puntos mas
+
+
+
+
+                //aqui tenemos 3 variables a controlar:
+                //1º)la tabalamaxima elegida:tablaMaxEnPref
+                //2º)el numero de aciertos:numeroAciertos
+                //3º)lo puntos que ya tenia:puntosActuales
+
+
+                //si ya tenemos los 151 ptos maximos no se suman mas!!
+
+                if (puntosActuales >= 151) {
+                    break;
+                }
+
+
+                //ahora dependiendo del nivel qu este puede conseguir un numero maximo
+                //tabla 1:max 10 ptos
+                //tabla 2:max 20 ptos
+                //tabla 3:max 30 ptos
+                // tabla 4:max 40 ptos
+                // tabla 5:max 50 ptos
+                //tabla 6:max 60 ptos
+                //tabla 7:max 70 ptos
+                //tabla 8:max 80 ptos
+                //tabla 9:max 90 ptos
+                //tabla 10:max 151 ptos
+
+                if (tablaMaxEnPref!=10 && ((tablaMaxEnPref*10)<puntosActuales) ){
+
+                    //salimos ya tenemos los maximos tambien salvo en 10 que pueden ser 150
+                    break;
+                }
+
+
+                puntosActuales++;
+                puntosActuales++;
+
+                edit.putInt(PREF_PUNTOS_PARA_VER_POKEMONS, puntosActuales);
+
+
+                // Commit the changes
+                edit.commit();
+
+                Log.d(TAG, "niño ya AHORA TIENE  "+puntosActuales + " PUNTOS");
+
+                    break;
+
+                case 3://2 puntos mas
+
+
+                    //aqui tenemos 3 variables a controlar:
+                    //1º)la tabalamaxima elegida:tablaMaxEnPref
+                    //2º)el numero de aciertos:numeroAciertos
+                    //3º)lo puntos que ya tenia:puntosActuales
+
+
+                    //si ya tenemos los 151 ptos maximos no se suman mas!!
+
+                    if (puntosActuales >= 151) {
+                        break;
+                    }
+
+
+                    //ahora dependiendo del nivel qu este puede conseguir un numero maximo
+                    //tabla 1:max 10 ptos
+                    //tabla 2:max 20 ptos
+                    //tabla 3:max 30 ptos
+                    // tabla 4:max 40 ptos
+                    // tabla 5:max 50 ptos
+                    //tabla 6:max 60 ptos
+                    //tabla 7:max 70 ptos
+                    //tabla 8:max 80 ptos
+                    //tabla 9:max 90 ptos
+                    //tabla 10:max 151 ptos
+
+                    if (tablaMaxEnPref!=10 && ((tablaMaxEnPref*10)<puntosActuales) ){
+
+                        //salimos ya tenemos los maximos tambien salvo en 10 que pueden ser 150
+                        break;
+                    }
+
+
+                    puntosActuales++;
+                    puntosActuales++;
+
+                    edit.putInt(PREF_PUNTOS_PARA_VER_POKEMONS, puntosActuales);
+
+
+                    // Commit the changes
+                    edit.commit();
+
+                    Log.d(TAG, "niño ya AHORA TIENE  "+puntosActuales + " PUNTOS");
+
+                    break;
+
+                case 5://5 puntos mas
+
+
+                    //aqui tenemos 3 variables a controlar:
+                    //1º)la tabalamaxima elegida:tablaMaxEnPref
+                    //2º)el numero de aciertos:numeroAciertos
+                    //3º)lo puntos que ya tenia:puntosActuales
+
+
+                    //si ya tenemos los 151 ptos maximos no se suman mas!!
+
+                    if (puntosActuales >= 151) {
+                        break;
+                    }
+
+
+                    //ahora dependiendo del nivel qu este puede conseguir un numero maximo
+                    //tabla 1:max 10 ptos
+                    //tabla 2:max 20 ptos
+                    //tabla 3:max 30 ptos
+                    // tabla 4:max 40 ptos
+                    // tabla 5:max 50 ptos
+                    //tabla 6:max 60 ptos
+                    //tabla 7:max 70 ptos
+                    //tabla 8:max 80 ptos
+                    //tabla 9:max 90 ptos
+                    //tabla 10:max 151 ptos
+
+                    if (tablaMaxEnPref!=10 && ((tablaMaxEnPref*10)<puntosActuales) ){
+
+                        //salimos ya tenemos los maximos tambien salvo en 10 que pueden ser 150
+                        break;
+                    }
+
+
+                    puntosActuales++;
+                    puntosActuales++;
+                    puntosActuales++;
+                    puntosActuales++;
+                    puntosActuales++;
+
+
+
+
+                    edit.putInt(PREF_PUNTOS_PARA_VER_POKEMONS, puntosActuales);
+
+
+                    // Commit the changes
+                    edit.commit();
+
+                    Log.d(TAG, "niño ya AHORA TIENE  "+puntosActuales + " PUNTOS");
+
+                 // TODO video de premio 1
+
+
+                    break;
+
+                case 70://video
 
                 //TODO video de premio 2
+                    break;
 
-            }
-
-            if (numeroAciertos==70){
-
-                //TODO video de premio 3
-            }
-
-
+        }//fin del switch
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //generamos nueva multiplicacion
 
 
@@ -586,7 +780,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
             case jrdv.mio.com.entrenatablasmultiplicacion.R.id.activity_login_access_code_delete:
 
                // if (this.mLoginButton.getVisibility() == View.VISIBLE) {
-               //     animateLoginButtonInOut(false);
+               //     ChequeaResultado(false);
                // }
                 this.mUserAccessCode.dispatchKeyEvent(new KeyEvent(
                         KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
@@ -716,7 +910,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////PULSADO UN BOTON POKEBALL/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

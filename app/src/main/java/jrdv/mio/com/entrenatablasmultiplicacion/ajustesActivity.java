@@ -198,6 +198,8 @@ public class ajustesActivity extends Activity {
             SharedPreferences.Editor edit = pref.edit();
             edit.putString(PREF_NOMBRE_NINO, NombreNinoElegido);
 
+            //y empezamos de 0 con los puntos!!!
+            edit.putInt(LoginPadActivity.PREF_PUNTOS_PARA_VER_POKEMONS, 0);
 
             // Commit the changes
             edit.commit();
@@ -241,6 +243,9 @@ You get the result string from res.get(0)
         SharedPreferences.Editor edit = pref.edit();
         edit.putString(PREF_NOMBRE_NINO, NombreNinoElegido);
 
+        //y empezamos de 0 con los puntos!!!
+        edit.putInt(LoginPadActivity.PREF_PUNTOS_PARA_VER_POKEMONS, 0);
+
 
         // Commit the changes
         edit.commit();
@@ -248,6 +253,11 @@ You get the result string from res.get(0)
         Log.d(TAG, "niño ya tiene nombre "+NombreNinoElegido);
 
         speak("De acuerdo " + NombreNinoElegido +" ya sé tu nombre");
+
+
+
+
+
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////PULSADO UN BOTON DONE/////////////////////////////////////////////////////////
