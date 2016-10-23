@@ -1,12 +1,14 @@
 package jrdv.mio.com.entrenatablasmultiplicacion;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,7 +47,7 @@ public class CustomListAdapterPokemo extends ArrayAdapter<String> {
 
 
 
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.new_pokemonlist, null,true);
 
@@ -59,6 +61,16 @@ public class CustomListAdapterPokemo extends ArrayAdapter<String> {
 
        // extratxt.setText("Description "+itemname[position]);
 
+        //ahora el boton de share:
+
+        ImageButton butonshare=(ImageButton) rowView.findViewById(R.id.sharepokemon) ;
+
+        butonshare.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //...
+                Log.e("INFO", "pulsado share en pokemon: " +  position);
+            }
+        });
 
         //aqui la animacion:http://yasirameen.com/2015/09/card-style-listview-with-google-like-animation/
 
@@ -68,5 +80,12 @@ public class CustomListAdapterPokemo extends ArrayAdapter<String> {
 
         return rowView;
 
-    };
+
+
+        };
+
+
+
+
+
 }

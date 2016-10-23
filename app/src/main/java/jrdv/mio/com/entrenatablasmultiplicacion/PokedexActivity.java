@@ -1,15 +1,20 @@
 package jrdv.mio.com.entrenatablasmultiplicacion;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -97,6 +102,29 @@ public class PokedexActivity extends Activity {
             "Machamp",
             "Bellsprout",
 
+            "Weepinbell",
+            "Victreebel",
+            "Tentacool",
+            "Tentacruel",
+            "Geodude",
+            "Graveler",
+            "Golem",
+            "Ponyta",
+            "Rapidash",
+            "Slowpoke",
+            "Slowbro",
+            "Magnemite",
+            "Magneton",
+            "Farfetchd",
+            "Doduo",
+            "Dodrio",
+            "Seel",
+            "Dewgong",
+            "Grimer",
+            "Muk",
+            "Shellder",
+            "Cloyster",
+            "Gastly"
     };
     /*
 
@@ -130,17 +158,27 @@ public class PokedexActivity extends Activity {
 
     private IconRoundCornerProgressBar progress2;
 
+    //PARA NOMBRE NINO A COMPARTIR
+
+
+    private String NombreNinoElegido;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokedex);
 
 
+
         //rellenamos el array copn los pokemos png segun los puntos:
 
-        //TODO recupermos los puntos(aunque se podria quitar ya se recuperanen oncreate!!)
+
+
+
         SharedPreferences pref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = pref.edit();
+
+        NombreNinoElegido= pref.getString(ajustesActivity.PREF_NOMBRE_NINO,"NONAME");
 
         puntospokemo = pref.getInt(LoginPadActivity.PREF_PUNTOS_PARA_VER_POKEMONS, 0);//por defecto vale 0
 
@@ -221,13 +259,31 @@ public class PokedexActivity extends Activity {
 
         //rellenamos la progresbar
 
-          progress2 = (IconRoundCornerProgressBar) findViewById(R.id.progress_bar);
-        progress2.setProgressColor(Color.parseColor("#56d2c2"));
-        progress2.setProgressBackgroundColor(Color.parseColor("#757575"));
+        progress2 = (IconRoundCornerProgressBar) findViewById(R.id.progress_bar);
+        // progress2.setProgressColor(Color.parseColor("#56d2c2"));
+        // progress2.setProgressBackgroundColor(Color.parseColor("#757575"));
         progress2.setIconBackgroundColor(Color.parseColor("#38c0ae"));
 
         progress2.setMax(151);
         progress2.setProgress(puntospokemo);
+
+        //TODO lo hacermo animado:
+        /*
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", 100, 0);
+        animation.setDuration(3500); // 3.5 second
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.start();
+
+        ObjectAnimator animation = ObjectAnimator.ofInt(progress2, "setProgress", 0, puntospokemo);
+        animation.setDuration(1000); // 1 second
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.start();
+        */
+
+
+        //cada vez el icono seraun pokemon al azar
         //progress2.setIconImageResource(R.drawable.p21);
         Random r = new Random();
         int i1 = r.nextInt(151 - 1) + 1;
@@ -239,6 +295,32 @@ public class PokedexActivity extends Activity {
         //actualziamos colores de la barra
 
         updateProgressTwoBarColor();
+
+
+        //con esto fuerzo a que re-dibuje y asi actualizae la progressbar!!!
+
+        progress2.invalidate();
+
+        //avisamos del punto conseguido!!!
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialogalertlayout);
+        dialog.setTitle(NombreNinoElegido);
+
+        TextView textView = (TextView) dialog.findViewById(R.id.dialogtext);
+        textView.setText("YA SOLO TE QUEDAN "+(151-puntospokemo)+"!!!");
+
+        ImageButton btnExit = (ImageButton) dialog.findViewById(R.id.btnExit);
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        // show dialog on screen
+        dialog.show();
+
+
+
 
         }
 
@@ -266,12 +348,36 @@ public class PokedexActivity extends Activity {
 
 
     }
-
     public void sharePokedex(View view) {
 
         //TODO share los pokemos!!
 
+
+        //Uri imageUri = Uri.parse("android.resource://" + getPackageName()+ "/drawable/" + "ic_launcher");
+
+
+        String nombreimagenpokemon = "p" + puntospokemo;
+
+
+
+
+        //progress2.setIconImageResource(getResourceID(nombreimagenpokemonazar, "drawable",  getApplicationContext()));
+
+        Uri imageUri = Uri.parse("android.resource://" + getPackageName()+ "/drawable/" + nombreimagenpokemon);
+
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "HOLA "+NombreNinoElegido +" Lleva conseguidos :" +puntospokemo +" POKEMONS EN POKEMULTIPLICACION!!");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+        shareIntent.setType("image/html");
+        //shareIntent.setType("text/html");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(shareIntent, "send"));
+
+
+
     }
+
 
     @Override
     protected void onRestart() {
@@ -297,6 +403,27 @@ public class PokedexActivity extends Activity {
         //actualziamos colores de la barra
 
         updateProgressTwoBarColor();
+
+
+        //avisamos del punto que te quedan!!!
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialogalertlayout);
+        dialog.setTitle(NombreNinoElegido);
+
+        TextView textView = (TextView) dialog.findViewById(R.id.dialogtext);
+        textView.setText("YA SOLO TE QUEDAN "+(151-puntospokemo)+"!!!");
+
+        ImageButton btnExit = (ImageButton) dialog.findViewById(R.id.btnExit);
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        // show dialog on screen
+        dialog.show();
+
+
     }
 
 
@@ -312,5 +439,7 @@ public class PokedexActivity extends Activity {
             progress2.setProgressColor(getResources().getColor(R.color.custom_progress_green_progress));
             progress2.setIconBackgroundColor(getResources().getColor(R.color.custom_progress_green_progress));
         }
+
+
     }
 }
