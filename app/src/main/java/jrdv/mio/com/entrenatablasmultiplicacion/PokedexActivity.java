@@ -236,4 +236,9 @@ public class PokedexActivity extends Activity {
 
     }
 
+    public void sharePokedex(View view) {
+
+        //TODO share los pokemos!!
+
+    }
 }

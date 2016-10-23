@@ -25,17 +25,30 @@
         android:layout_alignParentTop="true" >
     </ListView>
 
-
         <ImageButton
-            android:id="@+id/micButton"
+            android:id="@+id/shareButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/done_icon"
+            android:src="@drawable/share_icon"
             android:scaleType="fitCenter"
             android:background="@android:color/transparent"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="right"
             android:layout_margin="20dp"
-            android:onClick="SalirPokedex"/>
+            android:onClick="sharePokedex"/>
+
+
+
+
+        <ImageButton
+        android:id="@+id/micButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/done_icon"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="20dp"
+        android:onClick="SalirPokedex"/>
 
 
     </FrameLayout>

@@ -70,7 +70,7 @@ public class ajustesActivity extends Activity {
                 .error(R.drawable.rosa_1)
                 .animateGif(AnimateGifMode.ANIMATE)
                 // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
-                .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokeball1);
+                .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokeball_animada4);
 
 
 

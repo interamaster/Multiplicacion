@@ -285,6 +285,15 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
 
         tablaMaxEnPref=pref.getInt(PREF_TablaMAximaElegida,0);//por defecto vale 0
+        //idem con puntos y nombre
+
+        puntosActuales=pref.getInt(PREF_PUNTOS_PARA_VER_POKEMONS,0);//por defecto vale 0
+
+        //recuperamos el nombre del niño si tenia si no cambia el texto de wellcome
+
+
+        NombreNinoElegido= pref.getString(ajustesActivity.PREF_NOMBRE_NINO,"NONAME");
+
 
         generaMultiplicacion();
     }
@@ -786,7 +795,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                             //elegimos uno al azar
 
                             Random r = new Random();
-                            int i1 = r.nextInt(3 - 1) + 1;
+                            int i1 = r.nextInt(4 - 1) + 1;
                             final String str = "pokemon_animado" + String.valueOf(i1);
                             PokemonOcultoAnimadoView.setImageDrawable
                                     (
@@ -815,10 +824,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                             */
 
-                            //ponemos un sonido
 
-                            MediaPlayer mp = MediaPlayer.create(LoginPadActivity.this, R.raw.pikachu5);
-                            mp.start();
 
 
 
@@ -835,6 +841,11 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                                     //animamos
                                     PokemonOcultoAnimadoView.startAnimation(myAnim);
 
+                                    //ponemos un sonido
+
+                                    MediaPlayer mp = MediaPlayer.create(LoginPadActivity.this, R.raw.p4);
+                                    mp.start();
+
 
                                     break;
 
@@ -849,6 +860,11 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                                     //animamos
                                     PokemonOcultoAnimadoView.startAnimation(myAnim);
 
+
+                                    //ponemos un sonido
+
+                                    MediaPlayer mp2 = MediaPlayer.create(LoginPadActivity.this, R.raw.p58);
+                                    mp2.start();
                                     break;
 
                                 case 3:
@@ -862,10 +878,49 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                                     //animamos
                                     PokemonOcultoAnimadoView.startAnimation(myAnim);
 
+                                    //ponemos un sonido
+
+                                    MediaPlayer mp3 = MediaPlayer.create(LoginPadActivity.this, R.raw.pikachu5);
+                                    mp3.start();
 
                                     break;
 
 
+                                case 4:
+
+                                    Ion.with(PokemonOcultoAnimadoView)
+                                            .error(R.drawable.rosa_1)
+                                            .animateGif(AnimateGifMode.ANIMATE)
+                                            // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
+                                            .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokemon_animado4);
+
+                                    //animamos
+                                    PokemonOcultoAnimadoView.startAnimation(myAnim);
+
+                                    //ponemos un sonido
+
+                                    MediaPlayer mp4 = MediaPlayer.create(LoginPadActivity.this, R.raw.p80);
+                                    mp4.start();
+
+                                    break;
+
+                                case 5:
+
+                                    Ion.with(PokemonOcultoAnimadoView)
+                                            .error(R.drawable.rosa_1)
+                                            .animateGif(AnimateGifMode.ANIMATE)
+                                            // .load("android.resource://[packagename]" + R.drawable.optinscreen_map)
+                                            .load("android.resource://jrdv.mio.com.entrenatablasmultiplicacion/" + R.drawable.pokemon_animado5);
+
+                                    //animamos
+                                    PokemonOcultoAnimadoView.startAnimation(myAnim);
+
+                                    //ponemos un sonido
+
+                                    MediaPlayer mp5 = MediaPlayer.create(LoginPadActivity.this, R.raw.p59);
+                                    mp5.start();
+
+                                    break;
 
                             }
 
