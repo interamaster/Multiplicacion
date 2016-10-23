@@ -30,4 +30,5 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.+'//para los animated gif
     testCompile 'junit:junit:4.12'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'//para la progressbar
 }

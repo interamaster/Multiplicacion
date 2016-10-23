@@ -3,6 +3,7 @@ package jrdv.mio.com.entrenatablasmultiplicacion;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +11,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static android.content.ContentValues.TAG;
 import static jrdv.mio.com.entrenatablasmultiplicacion.LoginPadActivity.PREFS_NAME;
@@ -122,6 +125,11 @@ public class PokedexActivity extends Activity {
      */
     private GoogleApiClient client;
 
+
+    //para la barrade pokemos
+
+    private IconRoundCornerProgressBar progress2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,6 +217,29 @@ public class PokedexActivity extends Activity {
 
             );
 
+
+
+        //rellenamos la progresbar
+
+          progress2 = (IconRoundCornerProgressBar) findViewById(R.id.progress_bar);
+        progress2.setProgressColor(Color.parseColor("#56d2c2"));
+        progress2.setProgressBackgroundColor(Color.parseColor("#757575"));
+        progress2.setIconBackgroundColor(Color.parseColor("#38c0ae"));
+
+        progress2.setMax(151);
+        progress2.setProgress(puntospokemo);
+        //progress2.setIconImageResource(R.drawable.p21);
+        Random r = new Random();
+        int i1 = r.nextInt(151 - 1) + 1;
+
+        String nombreimagenpokemonazar = "p" + i1;
+
+        progress2.setIconImageResource(getResourceID(nombreimagenpokemonazar, "drawable",  getApplicationContext()));
+
+        //actualziamos colores de la barra
+
+        updateProgressTwoBarColor();
+
         }
 
     public void SalirPokedex(View view) {
@@ -240,5 +271,46 @@ public class PokedexActivity extends Activity {
 
         //TODO share los pokemos!!
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        //rellenamos la progresbar
+
+        progress2 = (IconRoundCornerProgressBar) findViewById(R.id.progress_bar);
+        progress2.setProgressColor(Color.parseColor("#56d2c2"));
+        progress2.setProgressBackgroundColor(Color.parseColor("#757575"));
+        progress2.setIconBackgroundColor(Color.parseColor("#38c0ae"));
+
+        progress2.setMax(151);
+        progress2.setProgress(puntospokemo);
+        //progress2.setIconImageResource(R.drawable.p21);
+        Random r = new Random();
+        int i1 = r.nextInt(151 - 1) + 1;
+
+        String nombreimagenpokemonazar = "p" + i1;
+
+        progress2.setIconImageResource(getResourceID(nombreimagenpokemonazar, "drawable",  getApplicationContext()));
+
+        //actualziamos colores de la barra
+
+        updateProgressTwoBarColor();
+    }
+
+
+    private void updateProgressTwoBarColor() {
+        float progress = progress2.getProgress();
+        if(progress <= 30) {
+            progress2.setProgressColor(getResources().getColor(R.color.custom_progress_red_progress));
+            progress2.setIconBackgroundColor(getResources().getColor(R.color.custom_progress_red_progress));
+        } else if(progress > 30 && progress <= 100) {
+            progress2.setProgressColor(getResources().getColor(R.color.custom_progress_orange_progress));
+            progress2.setIconBackgroundColor(getResources().getColor(R.color.custom_progress_orange_progress));
+        } else if(progress > 100) {
+            progress2.setProgressColor(getResources().getColor(R.color.custom_progress_green_progress));
+            progress2.setIconBackgroundColor(getResources().getColor(R.color.custom_progress_green_progress));
+        }
     }
 }
