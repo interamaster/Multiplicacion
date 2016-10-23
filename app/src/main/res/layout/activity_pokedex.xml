@@ -30,19 +30,6 @@
           >
     </ListView>
 
-        <ImageButton
-            android:id="@+id/shareButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/share_icon"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
-            android:layout_gravity="bottom|left"
-            android:layout_margin="20dp"
-            android:onClick="sharePokedex"/>
-
-
-
 
         <ImageButton
         android:id="@+id/micButton"

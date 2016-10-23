@@ -3,6 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
+
+
     <View
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -15,16 +19,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <ImageButton
-        android:id="@+id/sharepokemon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/share_icon"
-        android:scaleType="fitCenter"
-        android:background="@android:color/transparent"
-        android:layout_margin="20dp"
-        android:focusable="false"
-        />
+
 
     <ImageView
         android:layout_width="wrap_content"
@@ -51,5 +46,17 @@
         android:layout_alignLeft="@+id/icon"
         android:layout_alignStart="@+id/icon"
         android:layout_marginTop="6dp" />
+
+
+    <ImageButton
+        android:id="@+id/sharepokemon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/share_icon"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:layout_margin="20dp"
+
+        />
 
 </RelativeLayout>

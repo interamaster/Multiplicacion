@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,7 +24,7 @@ import java.util.Random;
 import static android.content.ContentValues.TAG;
 import static jrdv.mio.com.entrenatablasmultiplicacion.LoginPadActivity.PREFS_NAME;
 
-public class PokedexActivity extends Activity {
+public class PokedexActivity extends Activity  implements CustomListAdapterPokemo.customButtonListener {
 
 
     ListView list;
@@ -216,15 +215,30 @@ public class PokedexActivity extends Activity {
         //CustomListAdapterPokemo adapter = new CustomListAdapterPokemo(this, itemname, imgid);
         //new con pokemos
         CustomListAdapterPokemo adapter = new CustomListAdapterPokemo(this, itemname, imagenPokemons);
+        //para el custom clcik del boton:
+        adapter.setCustomButtonListner(PokedexActivity.this);
         list = (ListView) findViewById(R.id.list);
+
+
+
         list.setAdapter(adapter);
+
+
+        /*
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////ESTE LSITENER NO FUNCIONA SI HAY UN BOTON EN LA CELDA/////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////SE HACE IMPLEMENTADO  implements CustomListAdapterPokemo.customButtonListener / ////////////////////////////////////////////////////////
+        ///////////////////////////////////////Y SUS 2 FUNCIONES UNA PARA DETECTAR EL CLICK EN IMAGEN Y OTRO EN BOTON SHARE///////////////////////
+        ///////////////////////////////////////////onImageClickListner Y onButtonClickListner//////////////////////////////////////
+         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // TODO Auto-generated method stub
+
                 //String Slecteditem = itemname[+];
                 //Toast.makeText(getApplicationContext(), Slecteditem, Toast.LENGTH_SHORT).show();
                 ///en vez de un toast va a hacer su sonido que se llama igual que el nombre de la imagen:
@@ -254,6 +268,7 @@ public class PokedexActivity extends Activity {
             }
 
             );
+*/
 
 
 
@@ -303,23 +318,31 @@ public class PokedexActivity extends Activity {
 
         //avisamos del punto conseguido!!!
 
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialogalertlayout);
-        dialog.setTitle(NombreNinoElegido);
+        if(puntospokemo!=151) {
 
-        TextView textView = (TextView) dialog.findViewById(R.id.dialogtext);
-        textView.setText("YA SOLO TE QUEDAN "+(151-puntospokemo)+"!!!");
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.dialogalertlayout);
+            dialog.setTitle(NombreNinoElegido);
 
-        ImageButton btnExit = (ImageButton) dialog.findViewById(R.id.btnExit);
-        btnExit.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        // show dialog on screen
-        dialog.show();
+            TextView textView = (TextView) dialog.findViewById(R.id.dialogtext);
+            textView.setText("YA SOLO TE QUEDAN " + (151 - puntospokemo) + "!!!");
 
+            ImageButton btnExit = (ImageButton) dialog.findViewById(R.id.btnExit);
+            btnExit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            // show dialog on screen
+            dialog.show();
 
+        }
+
+        else{
+            //TODO si ya tienes los 151 eres un maquina!!!!!
+
+        }
 
 
         }
@@ -348,41 +371,14 @@ public class PokedexActivity extends Activity {
 
 
     }
-    public void sharePokedex(View view) {
 
-        //TODO share los pokemos!!
-
-
-        //Uri imageUri = Uri.parse("android.resource://" + getPackageName()+ "/drawable/" + "ic_launcher");
-
-
-        String nombreimagenpokemon = "p" + puntospokemo;
-
-
-
-
-        //progress2.setIconImageResource(getResourceID(nombreimagenpokemonazar, "drawable",  getApplicationContext()));
-
-        Uri imageUri = Uri.parse("android.resource://" + getPackageName()+ "/drawable/" + nombreimagenpokemon);
-
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "HOLA "+NombreNinoElegido +" Lleva conseguidos :" +puntospokemo +" POKEMONS EN POKEMULTIPLICACION!!");
-        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-        shareIntent.setType("image/html");
-        //shareIntent.setType("text/html");
-        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(Intent.createChooser(shareIntent, "send"));
-
-
-
-    }
 
 
     @Override
     protected void onRestart() {
         super.onRestart();
 
+        /*
         //rellenamos la progresbar
 
         progress2 = (IconRoundCornerProgressBar) findViewById(R.id.progress_bar);
@@ -423,7 +419,7 @@ public class PokedexActivity extends Activity {
         // show dialog on screen
         dialog.show();
 
-
+*/
     }
 
 
@@ -440,6 +436,65 @@ public class PokedexActivity extends Activity {
             progress2.setIconBackgroundColor(getResources().getColor(R.color.custom_progress_green_progress));
         }
 
+
+    }
+
+    @Override
+    public void onButtonClickListner(int position) {
+        Log.e("INFO", "pulsado share en pokemon: " +  position);
+
+        //aqui el pokemo share
+
+
+        String nombreimagenpokemon = "p" + position;
+
+
+
+
+        //progress2.setIconImageResource(getResourceID(nombreimagenpokemonazar, "drawable",  getApplicationContext()));
+
+        Uri imageUri = Uri.parse("android.resource://" + getPackageName()+ "/drawable/" + nombreimagenpokemon);
+
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "HOLA "+NombreNinoElegido +" Lleva conseguidos :" +puntospokemo +" POKEMONS EN POKEMULTIPLICACION!!");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+        shareIntent.setType("image/html");
+        //shareIntent.setType("text/html");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(shareIntent, "send"));
+    }
+
+    @Override
+    public void onImageClickListner(int position) {
+
+        Log.e("INFO", "pulsado IMAGEN en pokemon: " +  position);
+
+        //aqui el sonido
+
+
+        int posicionmas1 = ++position;
+
+        String nombreimagen = "p" + posicionmas1;
+        //Toast.makeText(getApplicationContext(), nombreimagen, Toast.LENGTH_SHORT).show();
+
+
+        //MediaPlayer mp = MediaPlayer.create(PokedexActivity.this, R.raw.pikachu5);
+
+        //sacamos el int del resource del mp3 solo si esta en los puntos
+
+        if (position <= puntospokemo) {
+
+            int sonidomp3 = getResourceID(nombreimagen, "raw", getApplicationContext());
+
+            if (sonidomp3!=0) {
+
+                //solo sonido si tiene
+                mp = MediaPlayer.create(PokedexActivity.this, sonidomp3);
+                mp.start();
+            }
+
+        }
 
     }
 }

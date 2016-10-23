@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -46,6 +47,9 @@ public class ajustesActivity extends Activity {
     private TextToSpeech textToSpeech;
     private String saludoInicial;
 
+    //para desahbilitAR EL BACKBUTTON
+
+    private  boolean doubleBackToExitPressedOnce = false;
 
 
 
@@ -144,15 +148,25 @@ public class ajustesActivity extends Activity {
     }
 
 
-
-    //deshabilitar boton back 1 vez
-    @Override
     public void onBackPressed() {
-        // Disable going back to the MainActivity
-        moveTaskToBack(true);
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
 
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Pulsa icono verde para empezar o de nuevo atras para salir", Toast.LENGTH_SHORT).show();
 
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
+
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////PULSADO UN BOTON MIC/////////////////////////////////////////////////////////

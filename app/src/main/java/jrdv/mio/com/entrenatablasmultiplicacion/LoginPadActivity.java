@@ -443,7 +443,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
     private void ChequeaResultado(boolean fallo) {
 
         /*
-        TODO animar el borrado del numero metido
+
         if (animateIn) {
             this.mLoginButton.setVisibility(View.VISIBLE);
             this.mLoginButton.startAnimation(this.mAnimSlideIn);
