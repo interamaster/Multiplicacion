@@ -5,10 +5,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,6 +21,9 @@ import android.widget.TextView;
 import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -446,23 +452,97 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
         //aqui el pokemo share
 
 
-        String nombreimagenpokemon = "p" + position;
+        String nombreimagenpokemon = "p" + (position+1);
 
 
-
-
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////PARA tODOS MENOS WHASTAPP//////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*
         //progress2.setIconImageResource(getResourceID(nombreimagenpokemonazar, "drawable",  getApplicationContext()));
 
         Uri imageUri = Uri.parse("android.resource://" + getPackageName()+ "/drawable/" + nombreimagenpokemon);
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "HOLA "+NombreNinoElegido +" Lleva conseguidos :" +puntospokemo +" POKEMONS EN POKEMULTIPLICACION!!");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "HOLA "+NombreNinoElegido +" Lleva conseguidos: " +puntospokemo +" POKEMONS EN POKEMULTIPLICACION!!");
         shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
         shareIntent.setType("image/html");
         //shareIntent.setType("text/html");
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(shareIntent, "send"));
+
+*/
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////para whastapp pero no HANGOUT /////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        try{
+
+           //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.p3);
+            int drawableResourceId = this.getResources().getIdentifier( nombreimagenpokemon, "drawable", this.getPackageName());
+             Bitmap bm = BitmapFactory.decodeResource(getResources(),drawableResourceId);
+            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+            //File file = new File(extStorageDirectory, "forma.PNG");
+            File file = new File(extStorageDirectory, nombreimagenpokemon+".PNG");
+            FileOutputStream outStream = new FileOutputStream(file);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        //String msgText = "Sample Message";
+
+        String msgText = "HOLA "+NombreNinoElegido +" Lleva conseguidos: " +puntospokemo +" POKEMONS EN POKEMULTIPLICACION!!";
+
+        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        shareIntent.setType("image/*");
+
+        //set your message
+        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, msgText);
+
+        String imagePath = Environment.getExternalStorageDirectory() + File.separator + nombreimagenpokemon+".png";
+
+        File imageFileToShare = new File(imagePath);
+
+        Uri uri = Uri.fromFile(imageFileToShare);
+
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+        startActivity(Intent.createChooser(shareIntent, msgText));
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////para TODOS//////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /*
+        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.p1);
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/LatestShare.jpg";
+        OutputStream out = null;
+        File file=new File(path);
+        try {
+            out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        path=file.getPath();
+        Uri bmpUri = Uri.parse("file://"+path);
+        Intent shareIntent = new Intent();
+        shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+        shareIntent.setType("image/jpg");
+        startActivity(Intent.createChooser(shareIntent,"Share with"));
+        */
     }
 
     @Override
@@ -495,6 +575,41 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
             }
 
         }
+
+    }
+
+    @Override
+    public void onHangoutClickListner(int position) {
+
+        Log.e("INFO", "pulsado HANGOUT SHARE  en pokemon: " +  position);
+
+        //aqui el pokemo share
+
+
+        String nombreimagenpokemon = "p" + (position+1);
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////PARA tODOS MENOS WHASTAPP//////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //progress2.setIconImageResource(getResourceID(nombreimagenpokemonazar, "drawable",  getApplicationContext()));
+
+        Uri imageUri = Uri.parse("android.resource://" + getPackageName()+ "/drawable/" + nombreimagenpokemon);
+
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "HOLA "+NombreNinoElegido +" Lleva conseguidos: " +puntospokemo +" POKEMONS EN POKEMULTIPLICACION!!");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+        shareIntent.setType("image/html");
+        //shareIntent.setType("text/html");
+        shareIntent.setPackage("com.google.android.talk");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(shareIntent, "send"));
+
+
+
+
 
     }
 }

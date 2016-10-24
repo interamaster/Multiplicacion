@@ -29,6 +29,7 @@ public class CustomListAdapterPokemo extends ArrayAdapter<String> {
     public interface customButtonListener {
         public void onButtonClickListner(int position);
         public void onImageClickListner(int position);
+        public void onHangoutClickListner(int position);
     }
 
     //And make a method to set the instance of the activity that has a ListView.
@@ -72,6 +73,8 @@ public class CustomListAdapterPokemo extends ArrayAdapter<String> {
 
         TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+
+
        // TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
         txtTitle.setText(itemname[position]);
@@ -83,6 +86,9 @@ public class CustomListAdapterPokemo extends ArrayAdapter<String> {
         //ahora el boton de share:
 
         ImageButton butonshare=(ImageButton) rowView.findViewById(R.id.sharepokemon) ;
+        //idem para el hangout
+
+        ImageButton hangoutshare = (ImageButton) rowView.findViewById(R.id.hangoutsharepokemon);
 
         /*
 
@@ -118,6 +124,18 @@ public class CustomListAdapterPokemo extends ArrayAdapter<String> {
             public void onClick(View v) {
                 if (customListner != null) {
                     customListner.onImageClickListner(position);
+                }
+
+            }
+        });
+
+        //3º)el boton disparara el metodo onButtonClickListner en el PokedexActivity
+        hangoutshare.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (customListner != null) {
+                    customListner.onHangoutClickListner(position);
                 }
 
             }
