@@ -177,6 +177,7 @@ public class ajustesActivity extends Activity {
 
         Log.d(TAG, "pulsado MIC"  );
 
+        textToSpeech.stop();
 
 
         listen();

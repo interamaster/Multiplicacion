@@ -562,7 +562,21 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     //si ya tenemos los 151 ptos maximos no se suman mas!!
 
-                    if (puntosActuales >= 151) {
+                    if (puntosActuales >= 10) {
+
+
+
+                        //lanzamos video!!!
+
+
+                        //mejor new activity creada con intent
+
+                        Intent videoPlaybackActivity = new Intent(this, VideoPremio151PokemoActivity.class);
+                        int res=this.getResources().getIdentifier("video_final_orig", "raw", getPackageName());
+                        videoPlaybackActivity.putExtra("fileRes", res);
+                        startActivity(videoPlaybackActivity);
+
+
                         break;
                     }
 
@@ -635,6 +649,17 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                 //si ya tenemos los 151 ptos maximos no se suman mas!!
 
                 if (puntosActuales >= 151) {
+
+                    //lanzamos video!!!
+
+
+                    //mejor new activity creada con intent
+
+                    Intent videoPlaybackActivity = new Intent(this, VideoPremio151PokemoActivity.class);
+                    int res=this.getResources().getIdentifier("video_final_orig", "raw", getPackageName());
+                    videoPlaybackActivity.putExtra("fileRes", res);
+                    startActivity(videoPlaybackActivity);
+
                     break;
                 }
 
@@ -701,6 +726,16 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     //si ya tenemos los 151 ptos maximos no se suman mas!!
 
                     if (puntosActuales >= 151) {
+
+                        //lanzamos video!!!
+
+
+                        //mejor new activity creada con intent
+
+                        Intent videoPlaybackActivity = new Intent(this, VideoPremio151PokemoActivity.class);
+                        int res=this.getResources().getIdentifier("video_final_orig", "raw", getPackageName());
+                        videoPlaybackActivity.putExtra("fileRes", res);
+                        startActivity(videoPlaybackActivity);
                         break;
                     }
 
@@ -769,6 +804,15 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     //si ya tenemos los 151 ptos maximos no se suman mas!!
 
                     if (puntosActuales >= 151) {
+                        //lanzamos video!!!
+
+
+                        //mejor new activity creada con intent
+
+                        Intent videoPlaybackActivity = new Intent(this, VideoPremio151PokemoActivity.class);
+                        int res=this.getResources().getIdentifier("video_final_orig", "raw", getPackageName());
+                        videoPlaybackActivity.putExtra("fileRes", res);
+                        startActivity(videoPlaybackActivity);
                         break;
                     }
 
@@ -822,7 +866,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                         @Override public void onClick(View v) {
                             dialog4.dismiss();
 
-                            // TODO video de premio 1
+
 
                             //creamsos la animacion
                             final Animation myAnim = AnimationUtils.loadAnimation(LoginPadActivity.this, R.anim.bounce2);

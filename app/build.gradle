@@ -25,10 +25,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile files('libs/androidautowire.jar')
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.koushikdutta.ion:ion:2.+'//para los animated gif
+    //para los animated gif
+    //para la progressbar
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.koushikdutta.ion:ion:2.+'
+    compile 'com.google.android.gms:play-services-appindexing:9.6.1'
+    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
-    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'//para la progressbar
 }

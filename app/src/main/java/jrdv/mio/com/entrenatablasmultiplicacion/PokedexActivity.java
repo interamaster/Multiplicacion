@@ -129,7 +129,72 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
             "Muk",
             "Shellder",
             "Cloyster",
-            "Gastly"
+            "Gastly",
+
+            "Haunter",
+            "Gengar",
+            "Onix",
+            "Drowzee",
+            "Hypno",
+            "Krabby",
+            "Kingler",
+            "Voltorb",
+            "Electrode",
+            "Exeggcute",
+            "Exeggutor",
+            "Cubone",
+            "Marowak",
+            "Hitmonlee",
+            "Hitmonchan",
+            "Lickitung",
+            "Koffing",
+            "Weezing",
+            "Rhyhorn",
+            "Rhydon",
+            "Chansey",
+            "Tangela",
+            "Kangaskhan",
+
+            "Horsea",
+            "Seadra",
+            "Goldeen",
+            "Seaking",
+            "Staryu",
+            "Starmie",
+            "Mr. Mime",
+            "Scyther",
+            "Jynx",
+            "Electabuzz",
+            "Magmar",
+            "Pinsir",
+            "Tauros",
+            "Magikarp",
+            "Gyarados",
+            "Lapras",
+            "Ditto",
+            "Eevee",
+            "Vaporeon",
+            "Jolteon",
+            "Flareon",
+            "Porygon",
+            "Omanyte",
+
+
+            "Omastar",
+            "Kabuto",
+            "Kabutops",
+            "Aerodactyl",
+            "Snorlax",
+            "Articuno",
+            "Zapdos",
+            "Moltres",
+            "Dratini",
+            "Dragonair",
+            "Dragonite",
+            "MewTwo",
+            "Mew"
+
+
     };
     /*
 
@@ -212,8 +277,8 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
 
         for (int n = puntospokemo; n <= 151; n++) {
 
-            //TODO poner icono
-            imagenPokemons.add(R.drawable.done_icon);
+
+            imagenPokemons.add(R.drawable.pokemon_shadow_ico);
 
         }
 
@@ -326,7 +391,7 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
 
         //avisamos del punto conseguido!!!
 
-        if(puntospokemo!=151) {
+        if(puntospokemo!=3) {
 
             final Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.dialogalertlayout);
@@ -348,12 +413,56 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
         }
 
         else{
+
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////si ya tienes los 151 eres un maquina!!!!!////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             //TODO si ya tienes los 151 eres un maquina!!!!!
 
+
+            videofinal151pokemos();
+
+
+
+
         }
 
 
         }
+
+
+    public void videofinal151pokemos() {
+        /*
+        VideoView videoHolder = new VideoView(this);
+        setContentView(videoHolder);
+        Uri video = Uri.parse("android.resource://" + getPackageName() + "/"
+                + R.raw.video_final_orig);
+        videoHolder.setVideoURI(video);
+        videoHolder.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                //TODO pte de ahcer algo mas... //jumpMain(); //jump to the next Activity
+                finish();
+            }
+        });
+        videoHolder.start();
+        */
+
+        //mejor new activity creada con intent
+
+        Intent videoPlaybackActivity = new Intent(this, VideoPremio151PokemoActivity.class);
+        int res=this.getResources().getIdentifier("video_final_orig", "raw", getPackageName());
+        videoPlaybackActivity.putExtra("fileRes", res);
+        startActivity(videoPlaybackActivity);
+    }
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////si ya tienes los 151 eres un maquina!//////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void SalirPokedex(View view) {
 
