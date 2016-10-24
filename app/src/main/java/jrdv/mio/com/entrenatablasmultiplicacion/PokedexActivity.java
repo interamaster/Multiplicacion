@@ -392,6 +392,7 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
         //avisamos del punto conseguido!!!
 
         if(puntospokemo!=3) {
+            //TODO cambiar el 3 por 151 !!!
 
             final Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.dialogalertlayout);
@@ -419,7 +420,7 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
             ///////////////////////////////////////////si ya tienes los 151 eres un maquina!!!!!////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            //TODO si ya tienes los 151 eres un maquina!!!!!
+
 
 
             videofinal151pokemos();
@@ -452,7 +453,7 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
         //mejor new activity creada con intent
 
         Intent videoPlaybackActivity = new Intent(this, VideoPremio151PokemoActivity.class);
-        int res=this.getResources().getIdentifier("video_final_orig", "raw", getPackageName());
+        int res=this.getResources().getIdentifier("video_final_orig2", "raw", getPackageName());
         videoPlaybackActivity.putExtra("fileRes", res);
         startActivity(videoPlaybackActivity);
     }

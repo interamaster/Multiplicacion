@@ -549,7 +549,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
             switch (numeroAciertos) {
 
-                case 1://1 punto mas
+                case 5://1 punto mas
 
 
 
@@ -562,9 +562,11 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     //si ya tenemos los 151 ptos maximos no se suman mas!!
 
-                    if (puntosActuales >= 10) {
+                    if (puntosActuales >= 151) {
 
+                        //paramos audio
 
+                        textToSpeech.stop();
 
                         //lanzamos video!!!
 
@@ -572,7 +574,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                         //mejor new activity creada con intent
 
                         Intent videoPlaybackActivity = new Intent(this, VideoPremio151PokemoActivity.class);
-                        int res=this.getResources().getIdentifier("video_final_orig", "raw", getPackageName());
+                        int res=this.getResources().getIdentifier("video_final_orig2", "raw", getPackageName());
                         videoPlaybackActivity.putExtra("fileRes", res);
                         startActivity(videoPlaybackActivity);
 
@@ -612,7 +614,12 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
 
                     //TODO esto no suena porque suena la siguinete multiploicacion
-                   // speak("acabas de ganar 1 punto para tu pokedex");
+
+                    //paramos audio
+
+                    //textToSpeech.stop();
+
+                    // speak("acabas de ganar 1 punto para tu pokedex");
 
                     //avisamos del punto conseguido!!!
 
@@ -635,7 +642,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     break;
 
-            case 2://2 puntos mas
+            case 10://2 puntos mas
 
 
 
@@ -650,13 +657,17 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                 if (puntosActuales >= 151) {
 
+                    //paramos audio
+
+                    textToSpeech.stop();
+
                     //lanzamos video!!!
 
 
                     //mejor new activity creada con intent
 
                     Intent videoPlaybackActivity = new Intent(this, VideoPremio151PokemoActivity.class);
-                    int res=this.getResources().getIdentifier("video_final_orig", "raw", getPackageName());
+                    int res=this.getResources().getIdentifier("video_final_orig2", "raw", getPackageName());
                     videoPlaybackActivity.putExtra("fileRes", res);
                     startActivity(videoPlaybackActivity);
 
@@ -714,7 +725,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     break;
 
-                case 3://2 puntos mas
+                case 20://2 puntos mas
 
 
                     //aqui tenemos 3 variables a controlar:
@@ -727,13 +738,17 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     if (puntosActuales >= 151) {
 
+                        //paramos audio
+
+                        textToSpeech.stop();
+
                         //lanzamos video!!!
 
 
                         //mejor new activity creada con intent
 
                         Intent videoPlaybackActivity = new Intent(this, VideoPremio151PokemoActivity.class);
-                        int res=this.getResources().getIdentifier("video_final_orig", "raw", getPackageName());
+                        int res=this.getResources().getIdentifier("video_final_orig2", "raw", getPackageName());
                         videoPlaybackActivity.putExtra("fileRes", res);
                         startActivity(videoPlaybackActivity);
                         break;
@@ -792,7 +807,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     break;
 
-                case 5://5 puntos mas
+                case 30://5 puntos mas
 
 
                     //aqui tenemos 3 variables a controlar:
@@ -804,13 +819,17 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     //si ya tenemos los 151 ptos maximos no se suman mas!!
 
                     if (puntosActuales >= 151) {
+
+                        //paramos audio
+
+                        textToSpeech.stop();
                         //lanzamos video!!!
 
 
                         //mejor new activity creada con intent
 
                         Intent videoPlaybackActivity = new Intent(this, VideoPremio151PokemoActivity.class);
-                        int res=this.getResources().getIdentifier("video_final_orig", "raw", getPackageName());
+                        int res=this.getResources().getIdentifier("video_final_orig2", "raw", getPackageName());
                         videoPlaybackActivity.putExtra("fileRes", res);
                         startActivity(videoPlaybackActivity);
                         break;
@@ -1047,6 +1066,10 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     Log.d(TAG, "niño ya AHORA TIENE  "+puntosActuales + " PUNTOS");
 
 
+
+                    //reseteo el numeor de aciertos para que pueda volver a sumar!!
+
+                    numeroAciertos=0;
 
 
 
