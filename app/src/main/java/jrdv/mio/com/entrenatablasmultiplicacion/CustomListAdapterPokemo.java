@@ -18,6 +18,9 @@ import java.util.ArrayList;
  */
 
 public class CustomListAdapterPokemo extends ArrayAdapter<String> {
+    //para los puntos
+
+    private int puntospokemo;
 
 
     //This method shares the context of the MainActivity with the interface to use this.
@@ -51,14 +54,14 @@ public class CustomListAdapterPokemo extends ArrayAdapter<String> {
     private int lastPosition = -1;
 
 
-    public CustomListAdapterPokemo(Activity context, String[] itemname, ArrayList<Integer> imagenPokemons) {
+    public CustomListAdapterPokemo(Activity context, String[] itemname, ArrayList<Integer> imagenPokemons, int  puntospokemopasados) {
         super(context, R.layout.new_pokemonlist, itemname);
 
 
         this.context=context;
         this.itemname=itemname;
         this.imagenPokemons = imagenPokemons;
-        //this.imgid=imgid;
+        this.puntospokemo=puntospokemopasados;
     }
 
 
@@ -90,6 +93,11 @@ public class CustomListAdapterPokemo extends ArrayAdapter<String> {
 
         ImageButton hangoutshare = (ImageButton) rowView.findViewById(R.id.hangoutsharepokemon);
 
+        //de moento son invisibles
+
+        butonshare.setVisibility(View.INVISIBLE);
+        hangoutshare.setVisibility(View.INVISIBLE);
+
         /*
 
         //asi funciona pero no pasa el click ala celda delc listview(y no suena el pokemon)
@@ -101,47 +109,57 @@ public class CustomListAdapterPokemo extends ArrayAdapter<String> {
         });
         */
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////solo poenmos los botones de share si aplica////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //asi creasmo un ainterface y a cada objeto(button e imagen le asignamos un click distinto!:
-        //1º)el boton disparara el metodo onButtonClickListner en el PokedexActivity
-        butonshare.setOnClickListener(new View.OnClickListener() {
+        if (position<puntospokemo) {
 
-            @Override
-            public void onClick(View v) {
-                if (customListner != null) {
-                    customListner.onButtonClickListner(position);
+            //dlos hacemos visibles
+
+            butonshare.setVisibility(View.VISIBLE);
+            hangoutshare.setVisibility(View.VISIBLE);
+
+
+            //asi creasmo un ainterface y a cada objeto(button e imagen le asignamos un click distinto!:
+            //1º)el boton disparara el metodo onButtonClickListner en el PokedexActivity
+            butonshare.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (customListner != null) {
+                        customListner.onButtonClickListner(position);
+                    }
+
                 }
-
-            }
-        });
+            });
 
 
+            //2º)la imagen  disparara el metodo onImageClickListner en el PokedexActivity
+            imageView.setOnClickListener(new View.OnClickListener() {
 
-        //2º)la imagen  disparara el metodo onImageClickListner en el PokedexActivity
-        imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (customListner != null) {
+                        customListner.onImageClickListner(position);
+                    }
 
-            @Override
-            public void onClick(View v) {
-                if (customListner != null) {
-                    customListner.onImageClickListner(position);
                 }
+            });
 
-            }
-        });
+            //3º)el boton disparara el metodo onButtonClickListner en el PokedexActivity
+            hangoutshare.setOnClickListener(new View.OnClickListener() {
 
-        //3º)el boton disparara el metodo onButtonClickListner en el PokedexActivity
-        hangoutshare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (customListner != null) {
+                        customListner.onHangoutClickListner(position);
+                    }
 
-            @Override
-            public void onClick(View v) {
-                if (customListner != null) {
-                    customListner.onHangoutClickListner(position);
                 }
+            });
 
-            }
-        });
-
-
+        }
 
         //aqui la animacion:http://yasirameen.com/2015/09/card-style-listview-with-google-like-animation/
 

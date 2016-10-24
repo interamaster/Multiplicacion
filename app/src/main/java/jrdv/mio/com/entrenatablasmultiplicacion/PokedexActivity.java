@@ -220,7 +220,9 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
 
         //CustomListAdapterPokemo adapter = new CustomListAdapterPokemo(this, itemname, imgid);
         //new con pokemos
-        CustomListAdapterPokemo adapter = new CustomListAdapterPokemo(this, itemname, imagenPokemons);
+        //CustomListAdapterPokemo adapter = new CustomListAdapterPokemo(this, itemname, imagenPokemons);
+        //new psasndoles los putnos pokemo al construvctor para ue luyego ene el getvsepa quien lleva iconos de share y quien no
+        CustomListAdapterPokemo adapter = new CustomListAdapterPokemo(this, itemname, imagenPokemons,puntospokemo);
         //para el custom clcik del boton:
         adapter.setCustomButtonListner(PokedexActivity.this);
         list = (ListView) findViewById(R.id.list);
