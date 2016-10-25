@@ -605,7 +605,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     puntosActuales++;
                     //TODO quitar es solo parachequerar todos lo pokemosn
 
-                    //puntosActuales=151;
+                    // puntosActuales=151;
 
 
                     edit.putInt(PREF_PUNTOS_PARA_VER_POKEMONS, puntosActuales);
@@ -632,7 +632,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     dialog.setTitle(NombreNinoElegido);
 
                     TextView textView = (TextView) dialog.findViewById(R.id.dialogtext);
-                    textView.setText("HAS GANADO 1 PUNTO!!!");
+                    textView.setText("HAS GANADO 1 POKEMON!!!");
 
                     ImageButton btnExit = (ImageButton) dialog.findViewById(R.id.btnExit);
                     btnExit.setOnClickListener(new View.OnClickListener() {
@@ -716,7 +716,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                 dialog2.setTitle(NombreNinoElegido);
 
                 TextView textView2 = (TextView) dialog2.findViewById(R.id.dialogtext);
-                textView2.setText("HAS GANADO 2 PUNTOS!!");
+                textView2.setText("HAS GANADO 2 POKEMON!!");
 
                 ImageButton btnExit2 = (ImageButton) dialog2.findViewById(R.id.btnExit);
                 btnExit2.setOnClickListener(new View.OnClickListener() {
@@ -795,7 +795,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     dialog3.setTitle(NombreNinoElegido);
 
                     TextView textView3 = (TextView) dialog3.findViewById(R.id.dialogtext);
-                    textView3.setText("HAS GANADO 3 PUNTOS!!");
+                    textView3.setText("HAS GANADO 3 POKEMON!!");
 
                     ImageButton btnExit3 = (ImageButton) dialog3.findViewById(R.id.btnExit);
                     btnExit3.setOnClickListener(new View.OnClickListener() {
@@ -882,7 +882,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
                     dialog4.setTitle(NombreNinoElegido);
 
                     TextView textView4 = (TextView) dialog4.findViewById(R.id.dialogtext);
-                    textView4.setText("HAS GANADO 5 PUNTOS!!");
+                    textView4.setText("HAS GANADO 5 POKEMON!!");
 
                     ImageButton btnExit4 = (ImageButton) dialog4.findViewById(R.id.btnExit);
                     btnExit4.setOnClickListener(new View.OnClickListener() {

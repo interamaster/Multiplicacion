@@ -9,9 +9,12 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.support.v4.util.Pair;
 import android.util.Log;
+
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -799,6 +802,21 @@ You get the result string from res.get(0)
     public void PulsadoInfo(View view) {
 
         Log.d(TAG, "PULSADO EN INFO ");
+
+        //vibra
+
+        long[] vibrationPattern = {0,150,150,150,150,75,75,150,150,150,150,450};
+
+        //-1 = don't repeat
+        final int indexInPatternToRepeat = -1;
+        ((Vibrator)getSystemService(VIBRATOR_SERVICE)).vibrate(vibrationPattern, indexInPatternToRepeat);
+
+        //empieza new activity
+
+        Intent intent = new Intent(ajustesActivity.this,AboutMeActivity.class);
+
+        startActivity(intent);
+
     }
 
 
