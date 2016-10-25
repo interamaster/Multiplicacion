@@ -201,7 +201,7 @@ public class ajustesActivity extends Activity {
         try {
             startActivityForResult(i, 100);
         } catch (ActivityNotFoundException a) {
-            Toast.makeText(ajustesActivity.this, "Your device doesn't support Speech Recognition", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ajustesActivity.this, "NO TE FUNCIONA EL MICRO TE LLAMARAS: ARTISTA", Toast.LENGTH_SHORT).show();
             //si no es compatible pasamos del nombre y le ponemo ARTISTA
 
             NombreNinoElegido="Artista";
@@ -239,7 +239,15 @@ You get the result string from res.get(0)
                 String inSpeech = res.get(0);
                 recognition(inSpeech);
             }
+            else {
+
+                //si por lo que sea falla el recon del nombre lo llmamaos artista
+
+                recognition("Artista");
+            }
         }
+
+
     }
 
 
@@ -268,7 +276,18 @@ You get the result string from res.get(0)
 
         Log.d(TAG, "niño ya tiene nombre "+NombreNinoElegido);
 
-        speak("De acuerdo " + NombreNinoElegido +" ya sé tu nombre");
+        if(NombreNinoElegido.equals("Artista")){
+
+
+            speak("No te he entendido ,  pero si no vuelves a pulsar el micro  te llamaré  " + NombreNinoElegido  );
+
+        }
+
+        else {
+            speak("De acuerdo " + NombreNinoElegido +" ya sé tu nombre");
+
+        }
+
 
 
 

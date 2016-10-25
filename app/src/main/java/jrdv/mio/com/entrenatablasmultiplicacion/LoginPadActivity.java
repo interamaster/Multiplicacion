@@ -603,6 +603,10 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
 
                     puntosActuales++;
+                    //TODO quitar es solo parachequerar todos lo pokemosn
+
+                    //puntosActuales=151;
+
 
                     edit.putInt(PREF_PUNTOS_PARA_VER_POKEMONS, puntosActuales);
 

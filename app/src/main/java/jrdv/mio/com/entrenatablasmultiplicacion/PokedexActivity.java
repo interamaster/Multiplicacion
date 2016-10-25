@@ -264,7 +264,7 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
 
             nombreimagenpokemon = "p" + String.valueOf(n);
 
-            Log.d(TAG, "pokemon a poner " + nombreimagenpokemon);
+          //  Log.d(TAG, "pokemon a poner " + nombreimagenpokemon);
 
 
             imagenPokemons.add(getResourceID(nombreimagenpokemon, "drawable",
@@ -391,8 +391,8 @@ public class PokedexActivity extends Activity  implements CustomListAdapterPokem
 
         //avisamos del punto conseguido!!!
 
-        if(puntospokemo!=3) {
-            //TODO cambiar el 3 por 151 !!!
+        if(puntospokemo!=151) {
+
 
             final Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.dialogalertlayout);
