@@ -803,6 +803,9 @@ You get the result string from res.get(0)
 
         Log.d(TAG, "PULSADO EN INFO ");
 
+        textToSpeech.stop();
+
+
         //vibra
 
         long[] vibrationPattern = {0,150,150,150,150,75,75,150,150,150,150,450};

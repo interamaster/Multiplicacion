@@ -47,7 +47,8 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
         <activity android:name=".AboutMeActivity"
-            android:theme="@style/Theme.AppCompat.Light.FullScreen">
+            android:theme="@style/Theme.AppCompat.Light.FullScreen"
+            android:screenOrientation="portrait">
 
         </activity>
     </application>
