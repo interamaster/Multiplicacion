@@ -549,7 +549,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
             switch (numeroAciertos) {
 
-                case 5://1 punto mas
+                case 3://1 punto mas
 
 
 
@@ -646,7 +646,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     break;
 
-            case 10://2 puntos mas
+            case 7://2 puntos mas
 
 
 
@@ -729,7 +729,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     break;
 
-                case 20://2 puntos mas
+                case 13://2 puntos mas
 
 
                     //aqui tenemos 3 variables a controlar:
@@ -811,7 +811,7 @@ public class LoginPadActivity extends BaseActivity implements View.OnClickListen
 
                     break;
 
-                case 30://5 puntos mas
+                case 20://5 puntos mas
 
 
                     //aqui tenemos 3 variables a controlar:
